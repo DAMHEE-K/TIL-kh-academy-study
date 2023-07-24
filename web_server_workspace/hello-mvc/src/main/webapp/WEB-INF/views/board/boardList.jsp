@@ -1,0 +1,52 @@
+<%@page import="com.sh.mvc.board.model.vo.Board"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+<%
+	List<Board> boards = (List<Board>) request.getAttribute("boards");
+%>
+<section id="board-container">
+	<h2>게시판 </h2>
+	<% if(loginMember != null) { %>
+			<input 
+			type="button" id="btn-add" value="글쓰기" 
+			onclick="location.href = '<%= request.getContextPath() %>/board/boardCreate';"/>
+	<% } %>
+	<table id="tbl-board">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>첨부파일</th><%--첨부파일이 있는 경우 /images/file.png 표시 width:16px --%>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for(Board b : boards) { %>
+			<tr>
+				<td><%= b.getNo() %></td>		
+				<td>
+				<a href="<%= request.getContextPath() %>/board/boardDetail?no=<%=b.getNo() %>"><%= b.getTitle() %></a>
+				<%	if(b.getCommentCnt() > 0) { %>
+					✉[<%= b.getCommentCnt() %>]
+				<% 	} %>
+				</td>		
+				<td><%= b.getWriter() %></td>		
+				<td><%= b.getRegDate() %></td>		
+				<td><% if(b.getAttachCnt() > 0) { %>
+				<img src="<%= request.getContextPath()%>/images/file.png" width="20px" height="20px">
+				<% } %></td>
+				<td><%= b.getReadCount()%></td>		
+			<tr>
+			<% } %>
+		</tbody>
+	</table>
+	<div id='pagebar'>
+		<%= request.getAttribute("pagebar") %>
+	</div>
+</section>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>

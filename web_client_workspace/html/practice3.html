@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        .vertical-menu {
+            width: 200px; /* 1번 */
+        }
+        .vertical-menu a { /* 2번 */
+            background: #eee;
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+        }
+        .vertical-menu a:hover { /* 3번 추가 */
+            background: lightgray;
+        }
+        .vertical-menu #active { /* 4번 아이디는 .이 아니라 # */
+            background: green;
+            color: white;
+        }
+        span { /* 5번 요구사항 */
+            font-size: 35px;
+        }
+
+        .checked { /* 6번 */
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="vertical-menu">
+        <a href="#" id="active">과목</a>
+        <a href="#">HTML</a>
+        <a href="#">CSS</a>
+        <a href="#">JAVASCRIPT</a>
+        <a href="#">JQUERY</a>
+    </div>
+    <br>
+    <span class="checked">★</span>
+    <span class="checked">★</span>
+    <span class="checked">★</span>
+    <span>★</span>
+    <span>★</span>
+</body>
+</html>

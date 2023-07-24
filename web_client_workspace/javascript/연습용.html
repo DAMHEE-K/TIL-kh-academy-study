@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="test1();">크릯하씨오</button>
+    <script>
+    const test1 = () => {
+        const nums = [];
+        nums[3] = 5;
+
+        console.log(nums[3]); // 5
+        console.log(nums.length); // 4
+    };
+    // setTimeout(() => alert('메롱'), 2000);
+    let n = 0;
+    setInterval(() => console.log(n++), 5000);
+    </script>
+</body>
+</html>

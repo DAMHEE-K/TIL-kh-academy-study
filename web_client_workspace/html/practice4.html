@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .row>label {
+            display: inline-block;
+            width: 50px;
+        }
+
+        .row>input[type="number"] {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <input type="checkbox" class="fruit" id="apple">
+        <label for="apple">사과</label> <span>2000</span>원
+        <input type="number" value="0" min="0"> 개
+    </div>
+    <div class="row">
+        <input type="checkbox" class="fruit" id="banana">
+        <label for="banana">바나나</label> <span>3000</span>원
+        <input type="number" value="0" min="0"> 개
+    </div>
+    <div class="row">
+        <input type="checkbox" class="fruit" id="melon">
+        <label for="melon">메론</label> <span>5000</span>원
+        <input type="number" value="0" min="0"> 개
+    </div>
+    <button id="btn">count</button>
+    <div id="result"></div>
+    <script>
+        const btn = document.getElementById("btn"); // 버튼
+        const result = document.getElementById("result"); 
+        const fruitList = document.getElementsByClassName("fruit"); //오타
+
+        btn.addEventListener("click", () => {
+            let str = "";
+            let sum = 0; // sum 값 const -> let으로 수정
+            for (const fruit of fruitList) {
+                if (fruit.checked) {
+                    const label = fruit.nextElementSibling.innerText; // 자식요소가 아니라 형제요소 읽어와야 하니까 nextElementSibling 
+                    const price = fruit.nextElementSibling.nextElementSibling.innerText; // 다음다음 형제 요소(span) 안에 있는 텍스트
+                    const input = fruit.nextElementSibling.nextElementSibling.nextElementSibling.value; // 다음다음 형제 요소(input)의 value
+                    sum += Number(price) * input;
+                    str += label + " " + input + "개 ";
+                }
+            }
+
+            str += "총합 " + sum + "원";
+            result.innerText = str;
+
+        });
+    </script>
+</body>
+
+</html>

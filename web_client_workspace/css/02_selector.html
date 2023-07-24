@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자</title>
+</head>
+<body>
+    <h1>선택자</h1>
+    <h2 class="group1">아이디 | 클래스 | 태그 | 속성 선택자</h2>
+    <!--div>(p#p$.group>lorem)*5 -->
+    <div>
+        <p id="p1" class="group1">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora molestias nesciunt eum itaque cum modi eaque voluptatem ut deserunt dolorem nobis ullam, possimus velit asperiores nam excepturi facere a officia.</p>
+        <p id="p2" class="group1" title="p2">Quos dolores reiciendis, ipsum ullam exercitationem molestiae libero sed odio maiores dolor facere, veritatis, at nam recusandae autem quasi! Aspernatur earum pariatur dicta ut placeat vitae dolores repellendus deserunt sit!</p>
+        <p id="p3" class="group2">Corporis, tempora dolor? Repellendus, odio impedit, ipsam eaque officia nobis eveniet quam necessitatibus fugit temporibus, nisi tenetur possimus atque! At error dolores hic odit corrupti tenetur provident nam autem libero.</p>
+        <p id="p4" class="group2" title="p4">Debitis asperiores odio reiciendis, natus sapiente repudiandae fugiat nemo necessitatibus veniam similique quod. Error nihil quaerat cumque omnis modi deleniti iste consequuntur laudantium, accusamus impedit magni fuga vero repellendus a!</p>
+        <p id="p5" class="group1 group2">Exercitationem cumque, harum dignissimos atque qui sint eaque optio praesentium, odit assumenda est quasi sit nam alias? Voluptatum, eum! Dolorum, dignissimos unde distinctio perspiciatis labore assumenda molestias corrupti quod fugit!</p>
+    </div>
+    <style>
+        /* 태그 선택자 */
+        /* p { 
+            color: teal;
+        } */
+
+        /* 아이디 선택자 */
+        /* #p1, #p3 {
+            background-color: aquamarine;
+        } */
+
+        /* 클래스 선택자 */
+        /* p.group1 {
+            color: tomato;
+        }
+        .group2 {
+            background-color: rgb(255, 207, 255);
+        }
+        .group1.group2 {
+            text-decoration: underline;
+        } */
+
+        /* 속성 선택자 */
+        /* [title] {
+            color: darkcyan;
+        } */
+        [title=p4] {
+            color: dodgerblue;
+        }
+    </style>
+
+    <h2>자식 | 후손 선택자</h2>
+    <!-- div#parent>h2+ul>li -->
+    <div id="parent">
+        <h2>h2 안녕</h2>
+        <ul>
+            <li>li hello</li>
+            <li>li 니하오</li>
+        </ul>
+        <div id="child">
+            <h2>h2 잘가</h2>
+            <ul>
+                <li>li Bye</li>
+                <li>li 짜이찌엔</li>
+            </ul>
+        </div>
+    </div>
+    <style>
+        /* parent>child 자식 선택자 */
+        div#parent > h2 {
+            color: olive;
+        }
+        
+        /* parent child 후손 선택자*/
+        div#parent h2 {
+            text-decoration: underline;
+        }
+
+        div#parent > div#child li {
+            color : tomato;
+        }
+    </style>
+
+    <h2>형제 선택자</h2>
+    <!-- div>p#myp${안녕$}*5 -->
+    <div>
+        <p id="myp1">안녕1</p>
+        <p id="myp2">안녕2</p>
+        <p id="myp3">안녕3</p>
+        <p id="myp4">안녕4</p>
+        <p id="myp5">안녕5</p>
+        <span id="myspan1">안녕6</span>
+    </div>
+    <style>
+        /* 형제 선택자는 다음 방향으로만 작동한다 */
+        /* + 다음 형제 요소 하나 */
+        p#myp2 + p {
+            color: rgb(155, 100, 92);
+        }
+        /* ~ 다음 형제 요소 모두 */
+
+        p#myp2 ~ p {
+            background-color: cadetblue;
+        }
+
+        p#myp2 ~ * {
+            text-decoration: underline;
+        }
+    </style>
+
+    <h2>가상 클래스 선택자</h2>
+    <!--
+        :foo 실제 존재하지 않는 클래스처럼 작동한다
+    -->
+    <div>
+        <p id="sample">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio quasi fugiat nostrum tempora rerum, tempore cupiditate excepturi et, earum aspernatur, voluptatem facilis quisquam dolorum repudiandae ratione hic. Hic, est praesentium.</p>
+    </div>
+    <div>
+        <a href="http://www.innerbody.com/htm/body.html" id="link">http://www.innerbody.com/htm/body.html</a>
+    </div>
+    <style>
+        /* :hover 마우스 오버 했을 때 */
+        p#sample:hover {
+            text-decoration: underline;
+            color: blue;
+        }
+
+        /* :active 클릭했을 때 */
+        p#sample:active {
+            background-color: rgb(233, 210, 255);
+            color:coral
+        }
+
+        /* 
+          a 태그 전용
+          :link 방문 전
+          :visited 방문 후
+          :hover 마우스 올려놓았을 때
+          :active 클릭
+        */
+        a#link:link {color :aquamarine;}
+        a#link:visited {color:blueviolet;}
+        a#link:hover {color: tomato;}
+        a#link:active {color:yellowgreen;}
+    </style>
+
+    <div>
+        <input type="text" id="username" placeholder="username">
+        <br />
+        <!-- input:checkbox[name=fruit]#fruit$+label[for=fruit$] -->
+        <input type="checkbox" name="fruit" id="fruit1"><label for="fruit1">사과</label>
+        <input type="checkbox" name="fruit" id="fruit2"><label for="fruit2">배</label>
+        <input type="checkbox" name="fruit" id="fruit3"><label for="fruit3">키위</label>
+    </div>
+    <style>
+        input:focus {
+            background-color: #bc5757;
+            color: aliceblue;
+        }
+        input:checked {
+            width: 50px;
+            height: 50px;
+        }
+        /* 체크박스가 체크되었을 때 label 태그 글자색 바꾸기 */
+        input:checked + label {
+            font-size : 50px;
+            color:rgb(255, 37, 37);
+        }
+    </style>
+    <div id="wrapper">
+        <p>봄</p> <!-- first child -->
+        <p>여름</p>
+        <p>가을</p>
+        <p>겨울</p>
+        <p>봄</p>
+        <p>여름</p>
+        <p>가을</p>
+        <p>겨울</p>
+        <ul> <!-- last child -->
+            <li>spring</li> <!-- first child -->
+            <li>summer</li>
+            <li>autumn</li>
+            <li>winter</li>
+            <li>spring</li>
+            <li>summer</li>
+            <li>autumn</li>
+            <li>winter</li>
+        </ul>
+    </div>
+    <style>
+        /* child */
+        /* div#wrapper :first-child {color : rgb(59, 69, 255);} */
+        /* div#wrapper :last-child {color : rgb(51, 153, 97);} */
+        /* div#wrapper :nth-child(3) {color :#bc5757} */
+        /* div#wrapper :nth-child(2n) {background-color :#add7ff; width: 100px;} */
+
+        /* of-type */
+        /* div#wrapper p:first-of-type {color :darkgoldenrod} */
+        /* div#wrapper p:last-of-type {color :rgb(255, 37, 37)} */
+        /* div#wrapper p:nth-of-type(2n) {text-decoration: underline;} */
+
+        /* 부정 선택자 :not(선택자) */
+        div#wrapper :not(p:first-of-type) {color: seagreen;}
+
+        /* 최상위 선택자 */
+        :root {background-color: wheat;}
+
+    </style>
+    <h2>가상 엘레먼트 선택자</h2>
+    <!-- 가상 요소를 지정하는 선택자 ::foo -->
+    <ul>
+        <li class="won">1000</li>
+        <li class="won">2000</li>
+        <li class="won">3000</li>
+    </ul>
+    <style>
+        .won::before {
+            content : "👲안녕하냐해👲";
+        }
+        .won::after {
+            content: '원이다 해';
+        }
+    </style>
+</body>
+</html>

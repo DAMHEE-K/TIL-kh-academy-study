@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Storage</title>
+    <style>
+    table {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        margin: 30px;
+    }
+    th, td {
+        border: 1px solid #000;
+        padding: 5px;
+        margin: 30px;
+    }
+    </style>
+    <script>
+    if(window.localStorage) {
+        console.log("이 브라우져는 Web Storage를 사용할 수 있습니다.");
+    } else {
+        console.log("이 브라우져는 Web Storage를 사용할 수 없습니다. 최신 브라우져를 사용하세요.");
+    }
+    </script>
+</head>
+<body>
+    <h1>Web Storage</h1>
+    <!-- 
+        - 브라우져에 사용자 정보를 key-value 형식으로 보관할 수 있는 객체
+        - 키, 벨류 모두 문자열로 저장됨. 객체, 배열도 문자열로 저장됨 (obj.toString()한 것 처럼 자동으로 toString()한 결과로 저장됨)
+        
+        1. localStorage 브라우져를 종료해도 보관된 데이터를 유지
+        2. sessionStorage 브라우져 종료 시 보관하던 데이터 정보를 자동으로 제거
+     -->
+
+     <fieldset>
+        <legend>Local Storage CRUD</legend>
+        <input type="text" id="key" placeholder="key">
+        <input type="text" id="value" placeholder="value">
+        <hr>
+        <!-- button#btn$*4 -->
+        <button id="btn1">저장</button>
+        <button id="btn2">삭제</button>
+        <button id="btn3">조회</button>
+        <button id="btn4">전체삭제</button>
+    </fieldset>
+    <script>
+    
+    /**
+     * clear()
+     */
+    btn4.onclick = () => {
+        // 삭제시에는 확인 절차를 한 번 더 밟는게 좋음
+        if(confirm("모든 아이템을 삭제하시겠습니까?"))
+            localStorage.clear();
+    }
+
+    /**
+     * getItem(key) 조회
+     * getItem(key) : when passed a key name, will return that key's value
+     */
+    btn3.onclick = () => {
+        const value = localStorage.getItem(key.value);
+        // kye에 있는 value값(사용자 입력값)을 가지고 localStorage에 저장된 아이템을 가져옴
+        if(value) {
+            document.querySelector("#value").value = value;
+            // 존재한다면 localStorage의 value 아이디 값을 사용자 입력값으로 바꿔줌
+        } else {
+            alert("해당하는 아이템이 존재하지 않습니다.");
+            // 초기화
+            document.querySelector("#value").value = '';
+        }
+    };
+
+    /**
+     * removeItem(key)
+     */
+    btn2.onclick = () => {
+        const keyVal = key.value;
+        localStorage.removeItem(keyVal); // 반환값 없음
+        
+        // 초기화
+        key.value = "";
+    };
+
+    /**
+     * setItem(key, value)
+     * - 별도의 수정메소드는 없고 덮어쓰기가 가능하다.
+     */
+    btn1.onclick = () => {
+        const keyVal = key.value;
+        const valueVal = value.value;
+        localStorage.setItem(keyVal, valueVal);
+
+        // 초기화
+        key.value = "";
+        value.value = "";
+    };
+    </script>
+
+    <h2>JSON을 통한 객체/배열 저장</h2>
+    <button id="btn5">저장</button>
+    <button id="btn6">불러오기</button>
+
+    <script>
+
+    /**
+     * JSON.stringify(객체 | 베열 | null) : js -> json
+     * JSON.parse : json -> js
+     */
+    btn6.onclick = () => {
+        const jsonStr = localStorage.getItem('user'); // localStorage에 저장된 user 객체를 읽어옴
+        console.log(jsonStr);
+        const user = JSON.parse(jsonStr); // json 문자열을 js 객체로 변환
+        console.log(user);
+
+        const arr = JSON.parse(localStorage.getItem("arr"));
+        console.log(arr);
+    };
+
+    /**
+     * WebStorage는 문자열만 저장이 가능하므로, 
+     * 배열/객체 저장 시 자동으로 toString 호출이 되고 그 결과가 저장된다.
+     * 
+     * 이를 방지하고, 요소를 보존하기 위해 JSON으로 먼저 변환해야 한다.
+     * 
+     * JSON
+     * - Javascript Object Notation
+     * - JavaScript 객체 리터럴, 배열, 스칼라 데이터를 표현하는 텍스트 기반의 방식
+     * - JSON은 완전히 언어 독립적인 텍스트 형식임
+     * - 이종간에 데이터를 주고받기 위한 형식언어로 사용됨 (문자열)
+     * - name/value 쌍으로 요소를 관리
+     * - object, array, string, number, true/false, null
+     * - name, 문자열은 모두 쌍따옴표로 감싸야 한다. (홑따음표 XXX)
+     */
+    btn5.onclick = () => {
+        const user = {
+            id : "honggd",
+            phone : "01012341234",
+            married : true,
+            age : 33,
+            hobby : ['축구', '농구', '야구'],
+            job : {
+                name : '개발자',
+                career : 10
+            }
+        };
+
+        const jsonStr = JSON.stringify(user);
+        console.log(typeof jsonStr, jsonStr); 
+        //string {"id":"honggd","phone":"01012341234","married":true,"age":33,
+        // "hobby":["축구","농구","야구"],"job":{"name":"개발자","career":10}}
+        localStorage.setItem('user', jsonStr);
+
+        const arr = [1, 2, 3, 4, 5];
+        localStorage.setItem('arr', JSON.stringify(arr));
+    };
+    </script>
+
+    <h2>방명록</h2>
+    <form action="javascript:saveGuestbook();" name="guestbookFrm">
+        <table>
+            <tr>
+                <th>
+                    <label for="guestName">이름</label>
+                </th>
+                <td>
+                    <input type="text" name="guestName" id="guestName" placeholder="이름을 작성하세요" value="홍길동">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="content">내용</label>
+                </th>
+                <td>
+                    <input type="text" name="content" id="content" placeholder="내용을 작성하세요" value="홈페이지 구경 잘했습니다. 금손이시네요.">
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input type="submit" value="저장">
+                </th>
+            </tr>
+        </table>
+    </form>
+    <!-- table#tbl-guestbook>thead>tr>th*4 -->
+    <table id="tbl-guestbook">
+        <thead> 
+            <tr> 
+                <th>No</th> 
+                <th>이름</th>
+                <th>내용</th>
+                <th>일시</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+    <script>
+    window.onload = () => {
+        loadGuestbook();
+    }
+    /**
+     * No 배열 인덱스 + 1
+     * 이름 guestbook.guestName
+     * 내용 guestbook.content
+     * 일시 geustbook.createAt -> yy/MM/dd
+     */
+    const loadGuestbook = () => {
+        /*  내가 푼 코드
+        const tbody = document.getElementById("tbl-guestbook").childNodes;
+        console.log(tbody);
+        const guestbooks = JSON.parse(localStorage.getItem("guestbooks"));
+
+        // guestbook -> tr -> tbody 순회
+        guestbooks.forEach((book, index) => {
+            let date = new Date(book.createdAt);
+            tbody[1].innerHTML += `<tr><td>${index+1}</td>
+<td>${book.guestName}</td>
+<td>${book.content}</td>
+
+<td>${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}</td></tr>`
+        });
+        */
+
+        /* 강사님 코드 */
+        const tbody = document.querySelector("table#tbl-guestbook tbody");
+        const guestbooks = JSON.parse(localStorage.getItem("guestbooks"));
+
+        tbody.innerHTML = guestbooks.reduce((html, {guestName, content, createdAt}, index) => {
+            const tr = `
+            <tr>
+                <td>${index+1}</td>
+                <td>${guestName}</td>
+                <td>${content}</td>
+                <td>${formatDatetime(createdAt)}</td>
+            </tr>
+            `;
+            return html + tr;
+        }, "");
+    };
+
+    const formatDatetime = (millis) => {
+        const d = new Date(millis);
+        const f = (n) => n.toString().padStart(2, "0");
+        const yy = d.getFullYear().toString().substring(2);
+        const MM = f(d.getMonth() + 1);
+        const dd = f(d.getDate());
+        const hh = f(d.getHours());
+        const mm = f(d.getMinutes());
+        return `${yy}/${MM}/${dd} ${hh}:${mm}`;
+    }
+
+    /**
+     * local Storage에 사용자 입력값 저장
+     */
+    const saveGuestbook = () => { // 제출이 성공되면 시행될 메소드
+        console.log('제출 성공!');
+
+        const frm = document.guestbookFrm; // form 태그 객체
+        const guestName = frm.guestName;
+        const content = frm.content;
+
+        const guestbook = new Guestbook(guestName.value, content.value);
+        console.log(guestbook);
+
+        const guestbooks = JSON.parse(localStorage.getItem('guestbooks')) || [];
+        // 기존 storage에 있는 배열을 불러오고, 없다면 새 배열을 만듦
+        // storage에 있는 애들을 자스 객체로 불러오기 위해서 JSON.parse 사용
+
+        guestbooks.push(guestbook);
+        const jsonStr = JSON.stringify(guestbooks); // 배열을 변경
+        localStorage.setItem("guestbooks", jsonStr); // 배열을 저장
+
+        // 초기화
+        guestName.value = '';
+        content.value = '';
+
+        loadGuestbook();
+    };
+
+    class Guestbook {
+        constructor (guestName, content, createdAt = Date.now()) {
+            this.guestName = guestName;
+            this.content = content;
+            this.createdAt = createdAt; // 작성시간
+        }
+        toString() {
+            return `Guestbook(guestName = ${this.guestName}, content = ${this.content}, createAt = ${this.createdAt})`;
+        }
+    }
+    
+    /**
+     * 유효성 검사 진행
+     * - e.preventDefault()가 호출되지 않으면 정상제출
+     */
+    document.guestbookFrm.onsubmit = (e) => {
+//         이벤트 객체 e
+//         DOM과 관련된 이벤트가 발생하면 관련 정보는 모두 event객체에 저장
+//         이벤트 발생 요소, 이벤트 타입, 이벤트 관련 데이터도 저장
+
+        const frm = e.target; // target : e가 발생한 엘리먼트
+        const name = frm.guestName; // form 하위 input 태그를 참조함. id가 아닌 name 속성값으로 참조함.
+        const content = frm.content;
+        console.log(frm, name, content);
+        if(!/^.{1,}$/.test(name.value)) { // 아무 내용이나 1글자 이상으로 시작하지 않으면~
+            alert("이름을 입력하세요.");
+            e.preventDefault(); // 제출방지 (제출은 막아주지만 이하 코드는 실행시키기 때문에)
+            return; // (이하 코드 실행 방지용 조기 리턴)
+        }
+
+        if(!/^.{1,}$/.test(name.value)) {
+            alert("내용을 입력하세요.");
+            e.preventDefault(); // 제출방지
+        }
+    }
+    </script>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </body>
+</html>

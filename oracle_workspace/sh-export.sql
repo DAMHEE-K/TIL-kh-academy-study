@@ -1,0 +1,275 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 화요일-5월-16-2023   
+--------------------------------------------------------
+DROP TABLE "SHOP"."TBL_MEMBER" cascade constraints;
+DROP TABLE "SHOP"."TBL_ORDERLIST" cascade constraints;
+DROP TABLE "SHOP"."TBL_PRODUCT" cascade constraints;
+DROP TABLE "SHOP"."TBL_SALESHISTORY" cascade constraints;
+DROP TABLE "SHOP"."TBL_SALESHISTORY_3M" cascade constraints;
+--------------------------------------------------------
+--  DDL for Table TBL_MEMBER
+--------------------------------------------------------
+
+  CREATE TABLE "SHOP"."TBL_MEMBER" 
+   (	"ID" VARCHAR2(20 BYTE), 
+	"PASSWORD" VARCHAR2(20 BYTE), 
+	"NAME" VARCHAR2(20 BYTE), 
+	"LOCATION" VARCHAR2(100 BYTE), 
+	"MONEY" NUMBER DEFAULT 0
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table TBL_ORDERLIST
+--------------------------------------------------------
+
+  CREATE TABLE "SHOP"."TBL_ORDERLIST" 
+   (	"ORDERNUM" VARCHAR2(20 BYTE), 
+	"ID" VARCHAR2(20 BYTE), 
+	"ITEMNUM" VARCHAR2(20 BYTE), 
+	"NAME" VARCHAR2(20 BYTE), 
+	"LOCATION" VARCHAR2(100 BYTE), 
+	"AMOUNT" NUMBER, 
+	"SALE_DATE" DATE DEFAULT sysdate
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table TBL_PRODUCT
+--------------------------------------------------------
+
+  CREATE TABLE "SHOP"."TBL_PRODUCT" 
+   (	"ITEMNUM" VARCHAR2(20 BYTE), 
+	"ITEMNAME" VARCHAR2(50 BYTE), 
+	"STOCK" NUMBER, 
+	"PRICE" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table TBL_SALESHISTORY
+--------------------------------------------------------
+
+  CREATE TABLE "SHOP"."TBL_SALESHISTORY" 
+   (	"ITEMNUM" VARCHAR2(20 BYTE), 
+	"ITEMNAME" VARCHAR2(50 BYTE), 
+	"TOTAL_AMOUNT" NUMBER, 
+	"SALE_DATE" DATE DEFAULT sysdate
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table TBL_SALESHISTORY_3M
+--------------------------------------------------------
+
+  CREATE TABLE "SHOP"."TBL_SALESHISTORY_3M" 
+   (	"ITEMNUM" VARCHAR2(20 BYTE), 
+	"ITEMNAME" VARCHAR2(50 BYTE), 
+	"TOTAL_AMOUNT" NUMBER, 
+	"TOTAL_SALES" NUMBER
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  TABLESPACE "USERS" ;
+REM INSERTING into SHOP.TBL_MEMBER
+SET DEFINE OFF;
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('zxc','zxc','김준한','zxc',0);
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('sangwoon_babo','1111','박상윤','서울역 옆 공원 벤치',0);
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('kjh425','1111','김준한','경기도과천',0);
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('ieidadami','damibabo','담비','수지구청역 3번 출구 앞 상가',0);
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('hong_dragon','1111','홍지용','서울시 용산구 한남동',0);
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('sangwoon_babo','1111','박상윤','서울역 옆 공원 벤치',0);
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('kjh425','1111','김준한','경기도과천',0);
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('ieidadami','damibabo','담비','수지구청역 3번 출구 앞 상가',0);
+Insert into SHOP.TBL_MEMBER (ID,PASSWORD,NAME,LOCATION,MONEY) values ('hong_dragon','1111','홍지용','서울시 용산구 한남동',0);
+REM INSERTING into SHOP.TBL_ORDERLIST
+SET DEFINE OFF;
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','lll','A736','lll','lll',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','k0j4h25','A736','김준한','경기도 과천시',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','kjhkjh','A736','김준한','경기도 과천',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','op','C327','op','op',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','op','B065','op','op',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','88','A736','88','88',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','--','B065','--','--',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','rudqls','C327','이경빈','경기도 광주시',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','rudqls','A651','이경빈','경기도 광주시',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','002','B432','002','002',1,to_date('23/05/15','RR/MM/DD'));
+Insert into SHOP.TBL_ORDERLIST (ORDERNUM,ID,ITEMNUM,NAME,LOCATION,AMOUNT,SALE_DATE) values ('DJY01SP100','id','C960','rr','rrs',1,to_date('23/05/16','RR/MM/DD'));
+REM INSERTING into SHOP.TBL_PRODUCT
+SET DEFINE OFF;
+Insert into SHOP.TBL_PRODUCT (ITEMNUM,ITEMNAME,STOCK,PRICE) values ('A736','트렌치코트',6,73000);
+Insert into SHOP.TBL_PRODUCT (ITEMNUM,ITEMNAME,STOCK,PRICE) values ('A651','티셔츠',2,13000);
+Insert into SHOP.TBL_PRODUCT (ITEMNUM,ITEMNAME,STOCK,PRICE) values ('B065','모자',11,14500);
+Insert into SHOP.TBL_PRODUCT (ITEMNUM,ITEMNAME,STOCK,PRICE) values ('C327','카고팬츠',38,170000);
+Insert into SHOP.TBL_PRODUCT (ITEMNUM,ITEMNAME,STOCK,PRICE) values ('C960','와이드팬츠',69,73900);
+Insert into SHOP.TBL_PRODUCT (ITEMNUM,ITEMNAME,STOCK,PRICE) values ('B432','양말',94,12000);
+REM INSERTING into SHOP.TBL_SALESHISTORY
+SET DEFINE OFF;
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A736','트렌치코트',10,to_date('23/03/17','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A736','트렌치코트',6,to_date('23/03/25','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A651','티셔츠',10,to_date('23/03/23','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B065','모자',3,to_date('23/04/05','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('C327','카고팬츠',10,to_date('23/04/20','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('C960','와이드팬츠',7,to_date('23/04/28','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B432','양말',26,to_date('23/04/21','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B065','모자',2,to_date('23/03/10','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A736','트렌치코트',10,to_date('23/05/02','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A651','티셔츠',20,to_date('23/05/10','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B432','양말',15,to_date('23/04/04','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('C327','카고팬츠',5,to_date('23/03/27','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A736','트렌치코트',1,to_date('23/04/18','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A651','티셔츠',9,to_date('23/04/16','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B432','양말',6,to_date('23/04/25','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A736','트렌치코트',10,to_date('23/03/17','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A736','트렌치코트',6,to_date('23/03/25','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A651','티셔츠',10,to_date('23/03/23','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B065','모자',3,to_date('23/04/05','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('C327','카고팬츠',10,to_date('23/04/20','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('C960','와이드팬츠',7,to_date('23/04/28','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B432','양말',26,to_date('23/04/21','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B065','모자',2,to_date('23/03/10','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A736','트렌치코트',10,to_date('23/05/02','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A651','티셔츠',20,to_date('23/05/10','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B432','양말',15,to_date('23/04/04','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('C327','카고팬츠',5,to_date('23/03/27','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A736','트렌치코트',1,to_date('23/04/18','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('A651','티셔츠',9,to_date('23/04/16','RR/MM/DD'));
+Insert into SHOP.TBL_SALESHISTORY (ITEMNUM,ITEMNAME,TOTAL_AMOUNT,SALE_DATE) values ('B432','양말',6,to_date('23/04/25','RR/MM/DD'));
+REM INSERTING into SHOP.TBL_SALESHISTORY_3M
+SET DEFINE OFF;
+--------------------------------------------------------
+--  DDL for Index PK_TBL_PRODUCT
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SHOP"."PK_TBL_PRODUCT" ON "SHOP"."TBL_PRODUCT" ("ITEMNUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index PK_TBL_SALESHISTORY_3M
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SHOP"."PK_TBL_SALESHISTORY_3M" ON "SHOP"."TBL_SALESHISTORY_3M" ("ITEMNUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index PK_TBL_PRODUCT
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SHOP"."PK_TBL_PRODUCT" ON "SHOP"."TBL_PRODUCT" ("ITEMNUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index PK_TBL_SALESHISTORY_3M
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SHOP"."PK_TBL_SALESHISTORY_3M" ON "SHOP"."TBL_SALESHISTORY_3M" ("ITEMNUM") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Trigger TRG_UPDATE_STOCK
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "SHOP"."TRG_UPDATE_STOCK" 
+    AFTER INSERT ON tbl_orderList 
+    FOR EACH ROW
+BEGIN    
+    UPDATE tbl_product p
+    SET
+        stock = stock - 1
+    WHERE
+        itemnum = :new.itemnum;
+    UPDATE tbl_member 
+    SET
+        money = money - (select price from tbl_product where itemnum = :new.itemnum)
+    WHERE
+        id = :new.id;
+END;
+
+/
+ALTER TRIGGER "SHOP"."TRG_UPDATE_STOCK" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_UPDATE_STOCK
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "SHOP"."TRG_UPDATE_STOCK" 
+    AFTER INSERT ON tbl_orderList 
+    FOR EACH ROW
+BEGIN    
+    UPDATE tbl_product p
+    SET
+        stock = stock - 1
+    WHERE
+        itemnum = :new.itemnum;
+    UPDATE tbl_member 
+    SET
+        money = money - (select price from tbl_product where itemnum = :new.itemnum)
+    WHERE
+        id = :new.id;
+END;
+
+/
+ALTER TRIGGER "SHOP"."TRG_UPDATE_STOCK" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table TBL_ORDERLIST
+--------------------------------------------------------
+
+  ALTER TABLE "SHOP"."TBL_ORDERLIST" MODIFY ("ORDERNUM" NOT NULL ENABLE);
+  ALTER TABLE "SHOP"."TBL_ORDERLIST" MODIFY ("ITEMNUM" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table TBL_PRODUCT
+--------------------------------------------------------
+
+  ALTER TABLE "SHOP"."TBL_PRODUCT" MODIFY ("ITEMNUM" NOT NULL ENABLE);
+  ALTER TABLE "SHOP"."TBL_PRODUCT" ADD CONSTRAINT "PK_TBL_PRODUCT" PRIMARY KEY ("ITEMNUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table TBL_SALESHISTORY
+--------------------------------------------------------
+
+  ALTER TABLE "SHOP"."TBL_SALESHISTORY" MODIFY ("ITEMNUM" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table TBL_SALESHISTORY_3M
+--------------------------------------------------------
+
+  ALTER TABLE "SHOP"."TBL_SALESHISTORY_3M" MODIFY ("ITEMNUM" NOT NULL ENABLE);
+  ALTER TABLE "SHOP"."TBL_SALESHISTORY_3M" ADD CONSTRAINT "PK_TBL_SALESHISTORY_3M" PRIMARY KEY ("ITEMNUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table TBL_SALESHISTORY
+--------------------------------------------------------
+
+  ALTER TABLE "SHOP"."TBL_SALESHISTORY" ADD CONSTRAINT "FK_TBL_PRODUCT_TO_TBL_SALESHISTORY_1" FOREIGN KEY ("ITEMNUM")
+	  REFERENCES "SHOP"."TBL_PRODUCT" ("ITEMNUM") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table TBL_SALESHISTORY_3M
+--------------------------------------------------------
+
+  ALTER TABLE "SHOP"."TBL_SALESHISTORY_3M" ADD CONSTRAINT "FK_TBL_PRODUCT_TO_TBL_SALESHISTORY_3M_1" FOREIGN KEY ("ITEMNUM")
+	  REFERENCES "SHOP"."TBL_PRODUCT" ("ITEMNUM") ENABLE;

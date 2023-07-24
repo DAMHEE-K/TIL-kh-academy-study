@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테이블 관련</title>
+    <!-- 
+    이클립스 (Eclipse)에서 다음과 같은 HTML 코드에 대해
+    <table border="1" cellspacing="10" cellpadding="20">
+    
+        cellspacing : 셀과 셀사이의 간격
+        cellpadding : 셀테두리와 셀속에 들어있는 내용물 사이의 간격(셀여백)
+
+        다음과 같은 경고에 직면할 수 있다.
+
+        Attribute (cellspacing) is obsolete. Its use is discouraged in HTML5 documents.
+        Attribute (cellpadding) is obsolete. Its use is discouraged in HTML5 documents.
+
+        HTML5에서는 table 속성으로 cellspacing과 cellpadding 없어졌기 때문이다.
+        다음과 같이 CSS로 표현할 수 있다. 
+    -->
+    <style> 
+        table {
+            border : 1px solid cadetblue;
+            /* border:선두께 선모양 선색상;
+            - 선모양(none, dotted, dashed, solid, double, groove, ridge, inset, outset)은 
+            반드시 명시를 해주어야만 한다. 선모양을 명시해주지 않으면 선이 안보여진다.
+            - 선색상은 색상이름이나 색상코드로 표기한다. */
+            border-spacing:10px; /* 셀과 셀사이의 간격 cellspacing을 대체함*/
+        }
+        th, td {
+            border : 1px solid cadetblue; 
+            padding : 5px; /* 셀테두리와 셀속에 들어있는 내용물 사이의 간격(셀여백) - cellpadding을 대체함 */
+        }
+    </style>
+</head>
+<body> 
+    <h1>테이블 관련</h1>
+    <!--
+        table : 테이블 관련 최상위 태그
+
+        thead : 헤더 행
+        tbody : 본문 행
+        tfoot : 푸터 행
+
+        tr : 행 자체
+            th : 행 하위 헤더 셀 태그
+            td : 행 하위 내용 셀 태그
+    -->
+
+    <table>
+        <thead>
+            <tr>
+                <th>브라우져 명</th>
+                <th>회사</th>
+                <th>홈페이지</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>엣지</td>
+                <td>MS</td>
+                <td><a href="https://microsoft.com">https://microsoft.com</a>
+                </td>
+            </tr>
+            <tr>
+                <td>크롬</td>
+                <td>구글</td>
+                <td><a href="https://google.com">https://google.com</a>
+                </td>
+            </tr>
+            <tr>
+                <td>사파리</td>
+                <td>애플</td>
+                <td><a href="https://apple.com">https://apple.com</a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>총 개수</th>
+                <th colspan="2">3개</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h2>행/열 합치기</h2>
+    <!--
+        colsapn 열 확장 (열 합치기) 가로로 확장
+        rowspan 행 확장 (행 합치기) 세로로 확장
+
+        테이블 너비
+         - 지정을 안하면 cell 내용에 의해서 결정됨
+         - 같은 위치에 있는 셀의 style을 따라 적용
+         - 같은 위치에 있는 셀에 동일한 style 속성이 적용되면 큰 값이 적용됨
+    -->
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="4">자기소개</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2" rowspan="2" style="width: 130px; height: 150px;">사진</td>
+                <td style="width: 80px;">이름</td>
+                <td style="width: 200px;"></td>
+            </tr>
+            <tr>
+                <td>연락처</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="width: 70px;">주소</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td style="height: 100px;">자기소개</td>
+                <td colspan="3"></td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>@실습문제 - 통화기준표</h2>
+    <table>
+        <thead style="background-color: rgb(152, 223, 178);">
+            <tr>
+                <th rowspan="2">통화</th>
+                <th rowspan="2">매매<br>기준율</th>
+                <th colspan="2">현찰 매매율</th>
+                <th colspan="2">전신환 매매율</th>
+                <th rowspan="2">T/C<br>매도율</th>
+            </tr>
+            <tr>
+                <th>매도율</th>
+                <th>매입율</th>
+                <th>매도율</th>
+                <th>매입율</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="height: 80px;">미국(USD)</td>
+                <td>1,023.00</td>
+                <td>1,040.90</td>
+                <td>1,005.10</td>
+                <td>1,032.80</td>
+                <td>1,013.20</td>
+                <td>1,035.27</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

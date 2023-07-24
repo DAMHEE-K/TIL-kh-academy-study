@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비동기처리</title>
+</head>
+
+<body>
+    <h1>비동기처리</h1>
+    <button id="btn1">Timer API</button>
+    <button id="btn2">DOM</button>
+    <script>
+        /**
+         * DOM Tree 요소를 추가/제거하는 작업은 비동기로 처리된다.
+         */
+        btn2.onclick = () => {
+            loadScript('js/func.js', () => abc());
+            // abc(); // 25_asynchronous.html:20 Uncaught ReferenceError: abc is not defined
+        };
+
+        const loadScript = (src) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => {
+                // load 핸들러 안에 후 처리 코드 작성
+                console.log(`${src} script load 완료!`);
+                callback(); // abc()
+            }
+            document.head.append(script); // 비동기식 처리
+        }
+
+        /**
+         * 동기식 처리
+         * - (함수 호출 후) 실행결과를 기다렸다가 다음 코드를 실행
+         * 
+         * 비동기식 처리
+         * - (함수 호출 후) 실행결과를 기다리지 않고 다음 코드 실행
+         * - DOM 관련 처리, Timer API 처리 등이 비동기식으로 작동함
+         * - 어떠한 요청을 보내면 그 요청이 끝날 때까지 기다리는 것이 아니라, 응답에 관계없이 바로 다음 동작이 실행되는 방식
+         * 
+         * 자바스크립트 실행구조
+         * - 싱글 스레드로 처리되는 언어 (한 번에 하나의 작업을 수행함)
+         * - 효율성을 위해 시간이 소요되거나 종료 시점을 알 수 없는 작업은 백그라운드로 처리를 미루었다가 나중에 실행함
+         * - 하지만 뒤로 밀려난 작업을 수행한 후에 특정 작업을 시행하고 싶다면 callback, promise, asynchronous 등을 이용해서
+         *   비동기 처리를 해야한다
+         * 
+         */
+        btn1.onclick = () => {
+            // 동기식 처리
+            let result;
+            result = foo();
+            console.log(result);
+
+            // 비동기식 처리
+            let result2;
+            setTimeout(() => { // producing 코드
+                result2 = 200; // 1초 있다가 200을 대입해라
+
+                // 실제 비동기작업 완료 후 실행코드 작성!
+                console.log(result2); // 200 // consuming 코드, 200을 넣은 이후에 처리해야 하는 코드
+            }, 1000);
+            console.log(result2); // undefined
+        };
+        const foo = () => 100;
+    </script>
+
+    <div class="box"></div>
+    <button id="btn3">@실습문제 - 배경색</button>
+    <style>
+        .box {
+            border: 1px solid #000;
+            width: 100px;
+            height: 100px;
+            margin: 30px 0 10px;
+        }
+    </style>
+    <script>
+        /**
+         * @실습문제 - 배경색
+         * - 빨 주 노 초 파 남 보
+         * - 버튼을 누르면 1초 간격으로 배경색을 변경
+         * 
+         * 콜백 함수를 통해서 특정 작업 후 다음 코드를 실행하도록 함
+         */
+        btn3.onclick = () => {
+            const box = document.querySelector(".box");
+            box.style.backgroundColor = 'red';
+            // callback hell
+            setTimeout(() => {
+                box.style.backgroundColor = 'orange';
+                setTimeout(() => {
+                    box.style.backgroundColor = 'green';
+                    setTimeout(() => {
+                        box.style.backgroundColor = 'navy';
+                        setTimeout(() => {
+                            box.style.backgroundColor = 'violet';
+                        }, 1000);
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        };
+    </script>
+</body>
+
+</html>

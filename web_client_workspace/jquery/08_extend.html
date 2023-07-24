@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQeury객체 확장</title>
+    <script src="js/code.jquery.com_jquery-3.7.0.js"></script>
+    <script src="js/352-jquery-1.0.0.js"></script>
+</head>
+<body>
+    <h1>jQuery 객체확장</h1>
+    <button id="btn1">$.extend</button>
+    <button id="btn2">$.fn.extend</button>
+    <button id="btn3">$.extend - static 메소드</button>
+    
+    <script>
+    /**
+     * jQuery 함수 static 메소드 추가
+     */
+    $(btn3).click(() => {
+        $.extend({
+            color(elem, color) {
+                console.log(elem, color);
+                $(elem).css('color',color);
+            }
+        });
+
+        $.color("h1", "red");
+    });
+
+    /**
+     * $객체에 커스텀 기능 추가하기
+     */
+     $(btn2).click(() => {
+        $.fn.extend({
+            colorize(color){
+        // this는 현재 jQuery객체를 가리킨다.
+            this.css("color", color);
+        // this반환 -> 메소드체이닝
+            return this;
+        },
+        backgroundColorize(bgcolor) {
+            this.css('backgroundColor', bgcolor)
+            return this;
+        }
+    });
+    // $("h1").css("color", "red");
+        $("h1")
+            .colorize("red")
+            .backgroundColorize("orange")
+            .text("ㅋㅋㅋ")
+    });
+
+    /**
+     * $.extend(target, object1, object2, ...)
+     * - target과 object1, object2 ...의 속성을 병합해 반환한다
+     */
+    $(btn1).click(() => {
+        const user1 = {username : 'honggd'};
+        const user2 = {email : 'honggd@naver.com'};
+        const user3 = $.extend(user1, user2);
+        // user1기준으로 user2의 속성을 합한다
+        console.log(user1);
+        console.log(user2);
+        console.log(user3);
+    });
+    </script>
+</body>
+</html>

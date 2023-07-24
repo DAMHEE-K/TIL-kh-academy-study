@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- 현재 문서 type이 html임을 지정 -->
+<html lang="en">
+<!-- 웹 언어 영어 (kr : 한글) -->
+<head>
+    <!-- head태그 : html문서를 정의하는 태그 -->
+    <meta charset="UTF-8">
+    <!-- 현재 문서의 문자 형식 지정 -->
+    <!-- html태그 : html 문서의 내용을 정의하는 태그로 이 안에 html 코드 작성하면 된다 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- body태그 : 화면에 보여질 html 문서의 내용 정의하는 태그 -->
+    <h1>문자 관련</h1>
+    <!-- heading 태그 (머릿글) 1~6까지 있음 -->
+    <h1>Helloworld</h1>
+    <h2>Helloworld</h2>
+    <h3>Helloworld</h3>
+    <h4>Helloworld</h4>
+    <h5>Helloworld</h5>
+    <h6>Helloworld</h6>
+
+    <!-- paragraph 태그 (문단) -->
+    <!-- 
+        html에서는 공백문자, 탭문자, 개행문자가 모두 공백 하나로 처리된다.
+    -->
+    <p> 안녕하세요. 
+        반갑습니다. 
+        저는 홍길동입니다.</p>
+    <p> 안녕하세요. <br/> <!-- br 개행태그 -->
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반갑습니다. <br/> <!-- &nbsp; 공백문자(&문자) -->
+        저는 홍길동입니다. <br/>
+    </p>
+
+    <!-- 특수문자 작성하기 -->
+    <!-- &문자로 escaping 처리해야 한다 -->
+    <p>
+        &quot;특수문자&quot; & &lt;tag&gt; 
+    </p>
+
+    <h2 title="html5의 Phrase Tag에 대한 설명입니다.">Phrase Tag</h2>
+    <!--
+        html4에서 html5로 버젼업하면서 강조된 개념 semantic tag
+        - 태그와 태그의 내용을 매칭해서 사용하기
+        - 단순 시각화 뿐 아니라 스크린리더가 해석할 수 있도록 함
+    -->
+    <!-- 인용구 -->
+    <p>
+        <blockquote cite="https://naver.com/12345">너 자신을 알라</blockquote>
+        <q>간단 인용구</q>는 q태그를 쓰세요.
+    </p>
+    <p>
+        <em>기울여서 강조 emphasized</em><br />
+        <strong>bold체로 강조</strong><br />
+        <mark>하이라이트 효과로 강조</mark><br />
+        <ins>밑줄 효과로 강조 inserted</ins><br />
+        <del>취소선 처리 deleted</del><br />
+    </p>
+    <p>
+        <!-- 축약어 태그 abbreviation -->
+        <abbr title="Internet of Things">IoT</abbr>개발자 모집 <br />
+        <!-- 코드표현 -->
+        <code> System.out.println("안녕"); </code> 실행하면,
+        <!-- 프로그램 출력 결과 -->
+        <samp>안녕</samp>이라고 출력됩니다. <br />
+        <!-- 키보드 입력 -->
+        복사하려면 <kbd>Ctrl</kbd> + <kbd>C</kbd>를 누르세요.
+    </p>
+    <p>
+        <em><mark>중첩</mark></em>해서 사용이 가능합니다.
+    </p>
+    <!-- 수평선 태그-->
+    <hr>
+    <!-- br*20 : br태그를 20개 만들어줌 -->
+</body>
+</html>

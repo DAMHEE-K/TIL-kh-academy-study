@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제 폼2</title>
+</head>
+<body>
+    <h2>실습문제 폼2</h2>
+    고객명 :
+    <input type="text" id="username" name="username">
+    <br /><br />
+    전화번호(필수) :
+    <input type="tel" name="phone" id="phone" required>
+    <br /><br />
+    E-mail : 
+    <input type="email" name="email" id="email">
+    <br /><br />
+    피자선택(필수) : 
+    <label for="pizza"></label>
+    <select name="pizza" id="pizza" required>
+        <option value="">피자를 선택하세요</option>
+        <option value="pizza">페페로니</option>
+        <option value="pizza">불고기</option>
+    </select>
+    <form>
+        <fieldset>
+            <legend>피자 사이즈(필수)</legend>
+            <div>
+                <input type="radio" name="size" id="size-s" value="s">
+                <label for="size-s">Small</label>
+                <br /><br />
+                <input type="radio" name="size" id="size-m" value="m">
+                <label for="size-m">Medium</label>
+                <br /><br />
+                <input type="radio" name="size" id="size-l" value="l">
+                <label for="size-l">Large</label>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>토핑 선택</legend>
+            <div>
+                <input type="checkbox" name="topping" id="bacon" value="bacon">
+                <label for="bacon">베이컨</label>
+                <input type="checkbox" name="topping" id="cheeze" value="cheeze">
+                <label for="cheeze">치즈</label>
+                <input type="checkbox" name="topping" id="onion" value="onion">
+                <label for="onion">양파</label>
+                <input type="checkbox" name="topping" id="mushroom" value="mushroom">
+                <label for="mushroom">버섯</label>
+            </div>
+            <div>
+                <label for="time">희망 배송 시간 : </label>
+                <input type="time" name="time" id="time">
+            </div>
+            <br />
+            <div>
+                <label for="etc">배송 요청 사항 : </label>
+                <textarea name="etc" id="etc" rows="3"></textarea>
+            </div>
+        </fieldset>
+        <input type="submit" value="주문하기">
+    </form>
+</body>
+</html>

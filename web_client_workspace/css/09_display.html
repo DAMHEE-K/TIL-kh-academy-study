@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>display</title>
+</head>
+<body>
+    <h1>display</h1>
+    <!-- display block | inline 요소를 구분하는 속성. 요소가 화면에 표현되는 다양한 형식을 지정 -->
+    <!-- .wrapper>.box{$}*5 -->
+    <div class="wrapper">
+        <div class="box d-inline-block">1</div>
+        <div class="box d-inline-block">2</div>
+        <div class="box d-inline-block">3</div>
+        <div class="box d-inline-block">4</div>
+        <div class="box d-inline-block">5</div>
+    </div>
+    <!-- .wrapper>span.box{$}*5 / span은 inline 요소 -->
+    <div class="wrapper">
+        <span class="box d-block">1</span>
+        <span class="box d-block">2</span>
+        <span class="box d-block">3</span>
+        <span class="box d-block">4</span>
+        <span class="box d-block">5</span>
+    </div>
+    <style>
+    /* block 요소처럼 width/height 지정 가능, inline 요소처럼 좌우배치 가능 */
+    .d-inline-block {
+        display: inline-block;
+    }
+    .d-inline {
+        display: inline;
+    }
+    .d-block {
+        display: block;
+    }
+    .wrapper {
+        margin: 20px;
+        font-size : 70px;
+    }
+    .box {
+        width: 150px;
+        height: 150px;
+        background-color: azure;
+        border: 1px solid black;
+    }
+    </style>
+
+    <h2>요소 감추기</h2>
+    <!-- (div.box+hr)*3 -->
+    <div class="box d-none"></div>
+    <hr>
+    <div class="box v-hidden"></div>
+    <hr>
+    <div class="box opacity-0"></div>
+    <hr>
+    <style>
+    .d-non { display: non; }
+    .v-hidden {visibility: hidden;}
+    .opacity-0 {opacity: 0;}
+
+    /* 아래 두 기능은 아예 요소가 사라지기 때문에 hover해도 변화 ㄴㄴ*/
+    /* .d-non:hover { display: block; }
+    .v-hidden:hover {visibility: visible;} */
+    </style>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="only-bg"></div>
+    <style>
+        /* background 속성에 관련 값 모두 작성. size 작성 시, position 꼭 작성! */
+        #only-bg {
+            width: 100%;
+            height: 800px;
+            border: 1px solid black;
+            /* background-image: url(/sample/image/bgsample.PNG); */
+            /* background-repeat:no-repeat; */
+            /* background-position:center center; */
+            /* background-size:cover; */
+            /* background-size:cover; 태그를 모두 채울 수 있을때까지 이미지 확대/축소. 이미지가 짤릴 수 있음. */
+            /* background-size:cotain;  x/y축 한쪽이 꽉 찰때까지만 이미지 확대/축소. 태그 공간이 남을 수 있음 */
+            /* background-attachment:fixed; */
+            
+            /* background color image position/size repeat attachment */
+            background: url(/sample/image/bgsample.PNG) center center/cover no-repeat fixed;
+        }
+        
+        /* background-image */
+        /* background-repeat */
+        /* background-position */
+        /* background-size */
+        /* background-attachment */
+        /* background-color */
+    </style>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
+</html>

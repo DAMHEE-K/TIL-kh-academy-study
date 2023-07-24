@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수 고급</title>
+</head>
+
+<body>
+    <h1>함수 고급</h1>
+    <button onclick="test1();">함수고급 - 매개인자</button>
+    <button onclick="test2();">함수고급 - 리턴값</button>
+    <button onclick="test3();">@실습문제 - tagMaker</button>
+    <div id="target"></div>
+    <script>
+
+        /**
+         * @실습문제 - tagMaker
+         */
+        const test3 = () => {
+            const writeP = tagMaker("p");
+            const writeMark = tagMaker("mark");
+            const writeButton = tagMaker("button");
+
+            target.innerHTML = writeP("안녕하세요.")
+            target.innerHTML += writeMark("형광팬")
+            target.innerHTML += writeButton("실행")
+        };
+
+        // const tagMaker = (tag) => {
+        //     return (str) => {
+        //         return `<${tag}>${str}</${tag}>`;
+        //     };
+        // };
+        const tagMaker = (tagName) => ((content) => `<${tagName}>${content}</${tagName}>`);
+
+        /**
+         * 함수가 함수를 리턴할 수 있다
+         */
+        const test2 = () => {
+            const f = funcMaker();
+            console.log(f);
+            f(100);
+
+            const sayHello = greetingMaker('안녕');
+            sayHello('철수');
+            sayHello('영희');
+
+            const sayGoodbye = greetingMaker('잘가');
+            sayGoodbye('철수');
+            sayGoodbye('영희');
+
+            const loanMoney = greetingMaker('돈 내놔');
+            loanMoney('상훈');
+        };
+
+        const greetingMaker = (say) => {
+            return (name) => {
+                console.log(`${say}, ${name}`);
+            };
+        };
+
+        const funcMaker = () => {
+            return (n) => {
+                console.log("Hello world" + n);
+            };
+        };
+
+        /**
+         * 함수는 값이다. (1급 시민객체)
+         * - 변수에 대입
+         * - 함수 호출 시 전달 (매개인자)
+         * - 함수의 리턴값이 함수일 수 있다
+         */
+        const test1 = () => {
+
+            // 내부선언했기 때문에 f에 접근하기 위해서는 test1에서만 접근할 수 있음
+            const f = (n) => {
+                console.log('Hello world' + n);
+            };
+            console.log(f, typeof (f)); // function
+            console.dir(f);
+            runner(f);
+
+
+            console.log(calc((a, b) => a + b, 10, 20));
+            console.log(calc((a, b) => a - b, 100, 30));
+            console.log(calc((a, b) => a * b, 5, 6));
+            console.log(calc((a, b) => Math.floor(a / b), 10, 3));
+            console.log(calc((a, b) => a % b, 10, 3));
+        };
+
+        const calc = (func, m, n) => func(m, n);
+
+        // 함수를 매개인자로 받아 함수를 실행함
+        const runner = (f) => f();
+    </script>
+
+    <script>
+        //1
+        let z = 50; // 전역변수
+        (() => {
+            let z = 55; // 지역변수
+            z += 45; // 가까운 z에 + 45
+            console.log(`z = ${z}`); // 100
+        })();
+        console.log(`z = ${z}`); // 50
+
+        //2
+        let y = 99;
+        (() => {
+            let x = 100;
+            let y = 9;
+            z = 1; // 전역변수 z를 1로 바꿈
+            console.log(`x + y + z = ${x + y + z}`); // 110
+        })();
+        console.log(`y + z = ${y + z}`); // 100
+        // console.log(`x + y + z = ${x + y + z}`); // 오류
+
+        //3
+        let i; // 전역 i
+        for (i = 1; i <= 10; i++) {
+            console.log(i); // 1~10까지 출력
+        }
+
+        (() => {
+            console.log(`i = ${i}`); // 11
+        })();
+
+        //4 
+        function foo() {
+            const num = 100;
+            return () => {
+                console.log(`num = ${num}`); // 100
+            }
+        }
+        const num = 200;
+        const too = foo(); // 100
+        too(); // 100
+
+    </script>
+</body>
+
+</html>

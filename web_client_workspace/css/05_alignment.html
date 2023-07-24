@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정렬</title>
+</head>
+<body>
+    <h1>정렬</h1>
+    <h2>inline요소의 정렬</h2>
+    <!-- inline요소 | block요소의 내용 text 같이 정렬 -->
+    <!-- div.wrapper>img+span+p>lorem -->
+    <div class="wrapper">
+        <img src="../sample/image/hyunta.jpg" alt="" width="100px">
+        <br />
+        <span>Hello world</span>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic vero suscipit recusandae eos eveniet sit itaque veniam quis voluptates, expedita delectus ullam sunt ea, debitis blanditiis temporibus enim sed culpa?</p>
+    </div>
+    <style>
+        /* 부모 block 요소에서 좌/우/가운데 정렬 처리 */
+        .wrapper {
+            text-align: center;
+        }
+    </style>
+
+    <h2>block요소의 정렬</h2>
+    <!-- div.outer>div.inner -->
+    <!-- .outer>.inner -->
+    <div class="outer">
+        <div class="inner">
+            <span>안녕</span>
+        </div>
+    </div>
+    <style>
+    /* block 요소는 margin값을 통해 정렬한다 */
+    /* margin 외부 요소와의 거리 */
+        .outer {
+            background-color: rgb(59, 137, 59);
+            border: 2px solid black;
+            width: 150px;
+            height: 150px;
+            /* 가운데 정렬: 위아래 0 좌우 auto */
+            margin: 0 auto; 
+            /* 우측 정렬 */
+            /* margin-left: auto; */
+
+            text-align: center;
+
+            /* 자식요소 수평 수직 가운데 정렬 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inner {
+            background-color: thistle;
+            border: 2px solid black;
+            width: 75px;
+            height: 75px;
+            /* margin: 0 auto; */
+
+            /*
+            margin :바깥 여백
+            padding : 테두리와 내용 사이의 여백
+            */
+        }
+    </style>
+</body>
+</html>

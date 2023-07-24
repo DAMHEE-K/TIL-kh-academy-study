@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제해결 1</title>
+    <style>
+        form .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        button.btn:hover {
+            opacity: 0.8;
+            color: yellow;
+        }
+        .cancel:hover {
+            opacity: 0.8;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <body>
+        <h2>로그인을 클릭하면 로그인 폼이 나타납니다.</h2>
+        <button class="open">로그인</button>
+        <div class="form-popup" id="myForm">
+            <form action="result.html" method="post">
+                <fieldset>
+                    <legend>로그인</legend>
+                    <h1>Login</h1>
+                    <label for="email"><b>Email</b></label> <!-- 0번째 노드 -->
+                    <input type="text" placeholder="Enter Email" name="email" required>
+                    <br>
+                    <label for="psw"><b>Password</b></label> <!-- 1번째 노드 -->
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+                    <br>
+                    <button type="submit" class="btn">Login</button>
+                    <button type="button" class="btn cancel">Close</button>
+                </fieldset>
+            </form>
+        </div>
+        <script>
+            document.getElementById("myForm").style.display = "none"; // 여기수정
+            const labels = document.querySelectorAll("label"); // 여기수정
+
+            labels.forEach(label => { // 모든 라벨을 80px로 고정
+                label.style.display = "inline-block";
+                label.style.width = "80px";
+            });
+
+            const open = document.querySelector(".open"); //  여기수정
+            
+            open.addEventListener("click", function () {
+                document.getElementById("myForm").style.display = "block";
+            });
+
+            const close = document.getElementsByClassName("btn cancel")[0]; // 여기수정
+
+            close.addEventListener("click", function () {
+                document.getElementById("myForm").style.display = "none";
+            });
+
+        </script>
+
+    </body>
+
+</html>

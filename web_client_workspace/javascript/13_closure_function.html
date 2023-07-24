@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클로져 함수</title>
+</head>
+<body>
+    <h1>클로져 함수</h1>
+    <button onclick="test1();">자유변수</button>
+    <button onclick="test2();">클로져함수</button>
+
+    <script>
+    /*
+    자스에서의 함수 : 함수를 객체로 만들어서 사용함. 객체 자체가 정의임.
+    함수가 객체이므로 함수를 매개변수로 받을 수도, 함수를 반환할 수도, 함수 안에서
+    함수를 사용할 수도 있음!
+
+    # 클로져 정리
+    1. 함수와 렉시컬 환경의 조합
+    2. 함수가 생성될 당시의 외부 변수를 기억 (함수에서 변수를 찾을때 내부 -> 외부 -> 전역 순서로 찾게됨)
+    3. 생성 이후에도 계속 접근 가능
+    */
+
+
+    /**
+     * 클로져 함수 Closure Function
+     * - 닫힘 함수
+     * - 참조하는 환경을 가지고 외부로부터 닫힌 함수
+     * - 자유변수를 포함한 함수
+     */
+    const test2 = () => {
+        function foo() {
+            const num = 100; // 아래에 있는 함수 기준으로 자유변수
+            return () => {
+                console.log(`num = ${num}`); // return될 때 num = 100 자유변수까지 함께 반환됨 (함수 안에 선언된 num 변수에 대한 참조값과 같이 반환)
+            }
+        }
+        const num = 200;
+        const too = foo(); // too는 자유변수 num = 100을 가지고 있음
+        console.dir(too); 
+        too(); // 100
+    }
+    
+    /**
+     * 자유변수 Free Variable
+     * - 함수 지역범위 밖에 선언된 변수
+     */
+    const say2 = "돈 좀 있니?"; // 자유변수
+
+    const hello = (name) => {
+        const say = "안녕";
+        console.log(`${say}, ${name}! ${say2}`);
+    }
+
+    const test1 = () => {
+        hello('철수');
+    };
+    </script>
+    <br><br>
+    <fieldset>
+        <button onclick = "test3();">전역 카운터</button>
+        <span id="globalCounterVal">0</span>
+        <br>
+        <button onclick = "test4();">클로져 카운터</button>
+        <span id="closureCounterVal">0</span>
+    </fieldset>
+    
+    <script>
+    let gcnt = 0; // 변수의 값이 오염되기 쉬움
+    const test3 = () => {
+        gcnt++;
+        globalCounterVal.innerHTML = gcnt;
+    };
+
+    const countMaker = () => {
+        let cnt = 0; 
+        return () => {
+            cnt++; // 자유변수
+            closureCounterVal.innerHTML = cnt;
+        }
+    }
+    const test4 = countMaker();
+    </script>
+
+    <fieldset>
+        <legend>폰트 크기 변경</legend>
+        <button onclick="fontTo16();">16</button>
+        <button onclick="fontTo24();">24</button>
+        <button onclick="fontTo32();">32</button>
+    </fieldset>
+
+    <script>
+        const fontChanger = (fontSize) => () => document.body.style.fontSize = `${fontSize}px`;
+
+        const fontTo16 = fontChanger(16);
+        const fontTo24 = fontChanger(24);
+        const fontTo32 = fontChanger(32);
+
+    </script>
+</body>
+</html>

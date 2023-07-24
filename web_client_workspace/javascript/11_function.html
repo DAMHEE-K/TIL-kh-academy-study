@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수</title>
+</head>
+
+<body>
+    <h1>함수</h1>
+    <button onclick="test1();">함수 선언식</button>
+    <button onclick="test2();">함수 표현식</button>
+    <button onclick="test3();">함수 표현식 - 화살표 함수</button>
+    <script>
+
+        /**
+         * 함수 선언식 Function Declaration
+         * - hoisting 처리됨
+         * - 실행이 되면 script먼저 훑어보고 함수 선언식인 애들은 다 위로 끌어올려지면서
+         *   미리 읽어지기 때문에, test1(); 먼저 호출해도 실행 가능함
+         */
+        test1();
+        function test1() {
+            console.log('test1 호출!!');
+        }
+
+        /**
+         * 함수 표현식 Function Expression
+         * - hoisting 처리 안됨
+         * - 함수를 값처럼 처리
+         * - 명시적으로 ; 을 무조건 찍어줘야 함
+         * - 익명 함수를 대입 (함수 명을 정해줘도 되지만 굳이 그럴 필요가 없다)
+         */
+        // test2(); // Uncaught ReferenceError: Cannot access 'test2' before initialization
+        const test2 = function () {
+            console.log('test2 호출!!');
+        };
+
+        /**
+         * 즉시 실행 함수 iife
+         * - Immediately Invoked Function Expression
+         * - 선언/호출
+         * - (function(){})();
+         * - (function(){}());
+         * 
+         * - 변수를 함수 안에서 선언해서 보호할 목적으로 사용
+         */
+        (function () {
+            console.log('iife 호출!');
+        })();
+        (function () {
+            console.log('iife 호출!');
+            let cnt = 0;
+        }());
+        (function (name) {
+            console.log(`Hello ${name}`);
+        })('철수');
+
+
+        /**
+         * 화살표 함수 Arrow Function
+         * - function 키워드 제거
+         * - 이름이 없음 (익명 함수)
+         * - 생성자로 사용 불가
+         * - arguments 키워드 사용 불가
+         * - 함수 자체 this가 없다 (부모 scope의 this로 고정)
+         */
+        const test3 = () => {
+            console.log('test3 호출!!');
+            console.log(f1(3, 5));
+        };
+
+        /**
+         * 함수 몸통이 return 구문 한 줄인 경우 { return } 생략가능
+         */
+        // const f1 = (a,b) => {
+        //     return a + b;
+        // };
+        const f1 = (a, b) => a + b;
+
+        // 함수 몸통의 실행구문이 한 줄인 경우 {} 생략가능
+        // const f2 = (a) => {
+        //     console.log(a);
+        // }
+        const f2 = (a) => console.log(a);
+
+        // 매개변수부의 괄호 생략 (매개변수가 하나인 경우만)
+        // const f2 = a => console.log(a);
+    </script>
+
+    <br><br>
+    <button onclick="test4();">매개인자 | 매개변수</button>
+    <button onclick="test5();">리턴값</button>
+    <button onclick="test6();">나머지 파라미터</button>
+    <button onclick="test7();">@실습문제 - 계산기</button>
+    <button onclick="test8();">try...catch</button>
+    <script>
+        /**
+         * try catch
+         * 오류가 발생하면 catch해서 정상 흐름으로 진행하기 위한 목적
+         */
+        const test8 = () => {
+            // throw new Error('ㅋㅋㅋ에러낫지롱');
+            try {
+                throw new Error('ㅋㅋㅋ에러낫지롱');
+            } catch (err) {
+                // console.log('에러가 발생했습니다.', err.message)
+                console.error(err);
+            }
+
+            console.log('정상처리중.....')
+        };
+
+        /**
+         * @실습문제 - 계산기
+         */
+        const test7 = () => {
+
+            console.log(calc('plus', 10, 20)); // 30
+            console.log(calc('plus', 10, 20, 30)); // 60
+            console.log(calc('minus', 100, 30)); // 70
+            console.log(calc('multiply', 3, 4, 5)); // 60
+            console.log(calc('multiply', 3, 4, 5, 6)); // 360
+            console.log(calc('divide', 10, 3)); // 3
+            console.log(calc('remain', 10, 3)); // 1
+
+        };
+
+        const calc = (type, ...nums) => {
+            // switch (type) {
+            //     case 'plus':
+            //         return nums.reduce(function (agg, num) {
+            //             return agg + num;
+            //         }, 0);
+            //     case 'minus':
+            //         return nums.reduce(function (agg, num) {
+            //             return agg - num;
+            //         });
+            //     case 'multiply':
+            //         return nums.reduce(function (agg, num) {
+            //             return agg * num;
+            //         });
+            //     case 'divide':
+            //         return nums.reduce(function (agg, num) {
+            //             return Math.trunc(agg / num);
+            //         });
+            //     case 'remain':
+            //         return nums.reduce(function (agg, num) {
+            //             return agg % num;
+            //         });
+            //     default: throw new Error('지원하지 않는 연산식입니다.');
+            // }
+
+            // switch(type) {
+            //     case 'plus':
+            //         return nums.reduce((agg,n) => agg + n ,0);
+            //     case 'minus':
+            //         return nums.reduce((agg, n) => agg - n);
+            //     case 'multiply':
+            //         return nums.reduce((agg, n) => agg * n,1);
+            //     case 'divide':
+            //         return nums.reduce((agg, n) => agg * n);
+            //     case 'remain' :
+            //         return nums.reduce((agg, n) => agg % n);
+            // }
+
+            
+            // ...nums 들어오는 nums[] 배열에 대해서 순차적으로 접근하기 위해
+            // reduce문 사용, 매개변수로 agg(초기값)과 n(nums의 n번째 요소들)이 들어옴
+            // clac 메소드의 매개변수로 들어온 type(플러스 마이너스 등)에 따라서
+            // switch문 작동함.
+            return nums.reduce((agg, n) => {
+                switch(type) {
+                    case 'plus': return agg + n;
+                    case 'minus': return agg - n;
+                    case 'multiply': return agg * n;
+                    case 'divide': return Math.floor(agg / n);
+                    case 'remain': return agg % n;
+                    default: throw new Error('지원하지 않는 연산식입니다.');
+                }
+            });
+        };
+
+        /**
+         * 나머지 파라미터 Rest Parameter
+         * - 전개 연산자와 모양이 같다
+         * - 매개변수 선언부에 사용. 전달한 인자를 배열로 받아 처리
+         * - 마지막에 한 번 사용이 가능
+         */
+        const test6 = () => {
+            // 매개변수부 - 나머지 파라미터
+            const foo = (name, ...hobby) => { //...매개변수
+                console.log(name, hobby);
+            };
+
+            foo('철수', '게임', '탁구');
+            foo('영희', '넷플릭스', '꽃꽂이', '뜨개질');
+            foo('우빈');
+
+            const hobbies = ['a', 'b', 'c'];
+            // 매개인자 - 전개연산자
+            foo('광희', hobbies); // 배열안에 배열이 들어간 형태임
+            foo('광희', ...hobbies); // 전개연산자를 사용해서 이어줌, ...매개인자
+        }
+
+        /**
+         * 리턴값
+         * - 모든 함수는 리턴값이 있다
+         * - 명시한 리턴값이 없다면 undefined가 반환
+         */
+        const test5 = () => {
+            const foo = () => 3;
+            const bar = () => { }; // 아무것도 반환하지 않음, { return undefined }
+            console.log(foo());
+            console.log(bar()); // undefined
+        };
+
+        /**
+         * 매개인자 arguments : 호출부에서 전달할 값
+         * 매개변수 parameter : 함수부에 선언된 변수 (값이 담길 공간)
+         * 
+         * - js에서는 매개인자/매개변수의 개수가 일치하지 않아도 오류가 발생하지 않는다.
+         */
+        const test4 = () => {
+            foo(10, 20, 30); // 10 20
+            foo(10, 20); // 10 20
+            foo(30); // 30 undefined
+            foo(); // undefined undefined
+        };
+
+        /**
+         * 매개변수 기본값 (= 0)
+         * - 해당 자리에 전달된 인자가 없을 때 (undefined)만 값 대입
+         */
+        const foo = function (a, b = 0) {
+            console.log(a, b);
+            console.log(arguments); // 전달한 모든 매개인자를 배열로 가지고 있다.
+            console.log(this) // this 용법2 : 일반 함수 내의 this는 window객체를 가리킨다.
+        };
+    </script>
+
+</body>
+
+</html>

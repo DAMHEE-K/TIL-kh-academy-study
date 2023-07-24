@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    img {
+        width: 200px;
+    }
+    </style>
+    <script src="js/code.jquery.com_jquery-3.7.0.js"></script>
+</head>
+<body>
+    <h1>attr | prop</h1>
+    <!--
+        attr : attribute 태그 인라인에 작성된 속성
+        prop : property 자바스크립트로 제어하는 속성. 주로 true/false로 처리하는 경우가 많다
+    -->
+    <div class="img-wrapper">
+        <img src="../sample/image/forest1.PNG" alt="">
+        <img src="../sample/image/flower2.PNG" alt="">
+    </div>
+    <button id="btn1">attr</button>
+    <script>
+    /**
+     * jQuery메소드
+     * - getter jQuery객체 하위의 첫번째 요소의 값 반환
+     * - setter jQuery객체 하위의 모든 요소 값 설정
+     */
+    $(btn1).click(() => {
+        // attr
+        const $img = $("img")
+        console.log($img);
+        console.log($img.attr('src')); // ../sample/image/forest1.PNG
+
+        $img.attr('src', '../sample/image/flower3.PNG');
+    });
+    </script>
+    <fieldset>
+        <legend>피자주문</legend>
+        <input type="checkbox" id="checkAll">
+        <label for="checkAll">전체선택</label>
+        <hr />
+        <!-- (input:checkbox[name=pizza]#pizza$+label[for=pizza$])*3 -->
+        <input type="checkbox" name="pizza" id="pizza1" value="페페로니"><label for="pizza1">페페로니</label>
+        <input type="checkbox" name="pizza" id="pizza2" value="슈프림"><label for="pizza2">슈프림</label>
+        <input type="checkbox" name="pizza" id="pizza3" value="콤비네이션"><label for="pizza3">콤비네이션</label>
+        <br />
+        <input type="button" value="주문" id="btn2">
+    </fieldset>
+    <script>
+    $(checkAll).change(() => {
+        const $pizza = $(":checkbox[name=pizza]");
+        // $pizza.each((index, pizza) => {
+        //     pizza.checked = checkAll.checked;
+        // })
+
+        // $("[name=pizza]").prop('checked', $(checkedAll).prop('checked'));
+        
+        checkAll.checked && $pizza.prop('checked', true);
+        checkAll.checked || $pizza.prop('checked', false);
+    })
+    $(btn2).click(() => {
+        const $pizza = $(":checkbox[name=pizza]");
+        // console.log($pizza);
+        // console.log($pizza.prop('checked')); // getter 첫번째 값만 가져옴 첫번째 체크박스에 대하여 true값 반환
+        // $pizza.prop('checked', true); // setter 전체 체크박스 체크하기
+
+        // 주문서
+        let order = '';
+        // js의 forEach(item, index)..
+        $pizza.each((index, pizza) => {
+            // console.log(index);
+            // console.log(pizza); // 순수한 js태그객체
+            // $(pizza).prop('checked', true); // js객체이기 때문에 안먹음
+
+            // 체크되어있는 경우 order에 value 속성값을 추가
+            if($(pizza).prop('checked')) {
+                order += $(pizza).val() + " ";
+            }
+        });
+        alert(order);
+    });
+    </script>
+</body>
+</html>

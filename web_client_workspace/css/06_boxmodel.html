@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>박스모델</title>
+</head>
+<body>
+    <h1>박스모델</h1>
+    <!-- div.box>span{안녕} -->
+    <div class="box">
+        <span>안녕</span>
+    </div>
+    <style>
+    /*
+        margin : 다른 요소와 현재 요소(border)와 거리
+            border : 경계영역 (width지정)
+                padding : border와 content 사이 영역
+                    content : 내용 width/height 지정
+    */
+    .box {
+        width: 300px;
+        height: 300px;
+        background-color: rgb(255, 168, 153);
+        border: 3px solid #000;
+        padding: 10px;
+        /* padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px; */
+
+        /* 위 오른쪽 아래 왼쪽 */
+        /* padding: 10px 20px 30px 40px;  */
+        
+        /* 값이 비어있으면 맞은 편의 값을 가져와서 씀 */
+        /* padding: 10px 20px 30px (20px) */
+        /* padding: 10px 20px (10px) (20px) */
+
+        margin: 20px;
+    }
+    </style>
+
+    <h2>margin 겹침 현상</h2>
+    <div class="test1">test1</div>
+    <div class="test2">test2</div>
+    <style>
+    .test1 {
+        background-color: #ffa2a2;
+        border: 2px solid #000;
+        width: 300px;
+        height: 300px;
+        margin-bottom: 50px;
+    }
+
+    .test2 {
+        background-color: #9ec0ff;
+        border: 2px solid #000;
+        width: 300px;
+        height: 300px;
+        margin-top: 75px;
+    }
+    </style>
+    
+    <h2>box-shadow</h2>
+    <div class="square"></div>
+
+    <style>
+    .square {
+        width:200px;
+        height: 200px;
+        background-color: rgb(175, 253, 220);
+        margin: 30px auto;
+
+        /* 가로offset 세로offset 번짐 그림자크기 컬러 */
+    }
+    .square:hover {
+        box-shadow: 5px 5px 7px 0 gray;
+        cursor: pointer;
+    }
+    
+    </style>
+</body>
+</html>

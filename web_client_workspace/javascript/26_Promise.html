@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+
+<body>
+    <h1>Promise</h1>
+    <button id="btn1">Basics</button>
+    <button id="btn2">setTimeout Promise</button>
+    <button id="btn3">DOM Promise</button>
+    <script>
+        /**
+         * DOM 관련 처리를 Promise로 만들기
+         * - load 이벤트 핸들러
+         * 
+         * - 생산코드와 소비코드를 나눠서 작업할 수 있음 (분리되어 있음)
+         */
+        btn3.onclick = () => {
+            loadScript('js/func.js')
+                .then(() => {
+                    abc();
+                });
+        };
+
+        const loadScript = (src) => new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => resolve(); // 준비완료상태, new Promise 반환
+            document.head.append(script);
+        });
+
+        /**
+         * setTimeout을 Promise로 만들기
+         * - callback 함수
+         * - millis초
+         */
+        btn2.onclick = () => {
+            delay(1000).then(() => {
+                console.log('ㅋㅋㅋ');
+            });
+        };
+
+        const delay = (millis) => new Promise((resolve) => {
+            // 생산코드
+            setTimeout(() => resolve(), millis);
+            // then을 호출했을때 코드가 resolve()에 들어옴
+        });
+
+        /**
+         * Promise 필요성
+         * 서버에서 받아온 데이터를 화면에 표시할 때, 데이터를 다 받아오기도 전에 데이터를 화면에 표시하는 코드가
+         * 시행된다면 오류가 발생함 -> 이러한 문제를 해결하기 위해 사용함
+         * 
+         * Promise 객체
+         * - 비동기 처리 callback hell을 개선한 문법 (then hell)
+         * - new Promise(), resolve(), then()과 같은 프로미스 API 사용
+         * - 생산코드 / 소비코드를 연결시키는 객체
+         * - Producing Code (생산코드/제작코드) 소요시간이 걸리거나 종료 시점을 알 수 없는 코드 -> Promise 전달하는 함수안에 작성
+         * - Consuming Code (소비코드) 생산코드의 결과물을 가지고 이어서 작업할 코드 -> then에 전달하는 함수안에 작성
+         * 
+         * 속성
+         * - PromiseStatus :
+         *   1) Pending(대기) : 비동기 처리 로직이 아직 완료되지 않은 상태
+         *   2) Fulfilled(이행) : 비동기 처리가 완료되어 프로미스가 결과 값을 반환해준 상태
+         *   3) Rejected(실패) : 비동기 처리가 실패된 상태
+         * 
+         * - PromiseResult : undefined -> 생산코드에서 코드 마지막에 호출하는 resolve 함수의 인자값으로 바뀜
+         */
+        btn1.onclick = () => {
+            // new Promise() 호출하면 대기상태, promise 호출할 때 콜백 함수(다음에 실행할 함수)를 선언할 수 있고
+            // 콜백 함수의 인자는 resolve이다
+            new Promise((resolve) => {
+                // 생산코드 작성
+                console.log('producing...');
+
+                // 소비코드 호출
+                // resolve()를 호출하면 콜백함수를 호출할 준비가 완료된 상태(이행상태)가 된다
+                resolve(123); // 소비코드가 작성된 함수 호출, 123은 Promise객체의 result 속성값이 된다.
+            })
+            // 이행상태가 되면 아래와 같이 then()을 이용하여 처리 결과 값을 받을 수 있다
+            .then((result) => { // then을 사용해서 소비코드 작성
+                console.log('consuming....', result);
+            });
+
+            const promise = getPromise();
+            console.log(promise);
+            promise.then((result) => {
+                console.log('CONSUMING...', result);
+            });
+        };
+
+        const getPromise = () => new Promise((resolve) => {
+            console.log('PRODUCING ...'); // 생산코드
+            resolve(456); // 소비코드 이행상태(fulfilled)
+        });
+    </script>
+
+    <hr />
+    <button id="btn4">Promise chain</button>
+    <button id="btn5">배경색 변경</button>
+    <div class="box"></div>
+    <style>
+        .box {
+            border: 1px solid #000;
+            width: 100px;
+            height: 100px;
+            margin: 30px 0 10px;
+        }
+    </style>
+    <script>
+        /**
+         * 배경색 변경
+         */
+        btn5.onclick = () => {
+            changeBGColor('red')
+                .then(() => changeBGColor('orange'))
+                .then(() => changeBGColor('yellow'))
+                .then(() => changeBGColor('green'))
+                .then(() => changeBGColor('blue'))
+                .then(() => changeBGColor('navy'));
+        };
+
+
+        const changeBGColor = (color) => new Promise((resolve) => {
+            document.querySelector(".box").style.backgroundColor = color;
+            setTimeout(() => resolve(), 1000);
+        });
+
+
+        /**
+         * Promise Chain
+         * - Promise#then 암묵적으로 Promise 객체를 반환하기 때문에 then 다음에 연이어 then을 호출할 수가 있음
+         * - Promise#then 함수의 리턴값
+         *      - 명시적으로 Promise 객체를 반환할 수도 있다
+         *      - 특정 값을 리턴하면, 다음 Promise 객체의 result값이 된다.
+         */
+        btn4.onclick = () => {
+            console.log(
+                new Promise((resolve) => {
+                    console.log('producing ....');
+                    resolve(1);
+                })
+                    .then((result) => {
+                        console.log('consuming...', result);
+                        return result + 1;
+                    })
+                    .then((result) => {
+                        console.log('consuming2...', result);
+                    })
+            );
+
+            // 명시적으로 Promise객체 반환
+            promiseMaker(1)
+                .then(() => {
+                    console.log('소비중...');
+                    promiseMaker(2)
+                })
+                .then(() => {
+                    console.log('소비중2...');
+                });
+        };
+
+
+        const promiseMaker = (id) => new Promise((resolve) => {
+            console.log(`생산중${id}...`);
+            resolve();
+        });
+    </script>
+
+</body>
+
+</html>

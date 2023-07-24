@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 탐색</title>
+    <script src="js/code.jquery.com_jquery-3.7.0.js"></script>
+    <style>
+    .wrap * {
+        border: 1px solid rgb(158, 170, 169);
+        display: block;
+        padding: 5px;
+        margin: 15px;
+        color: gray;
+    }
+    </style>
+</head>
+<body>
+    <h1>DOM 탐색</h1>
+    <div class="wrap">
+        <div class="type">div.type (great-grandparent)
+            <ul>ul (grandparent)
+                <li>li (direct parent)
+                    <span>span1</span>
+                </li>
+                <li>li (direct parent)
+                    <span>span2</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="type">div.type (grandparent)
+            <p>p (direct parent)
+                <span>span3</span>
+            </p>
+        </div>
+
+        <!-- @실습문제 -->
+        <div class="type test">
+            div.test
+            <ul>
+                ul1
+                <li>li1-1</li>
+                <li>
+                    li1-2
+                    <ul>
+                        ul2
+                        <li>li2-1</li>
+                        <li>li2-2</li>
+                        <li>
+                            li2-3
+                            <ul>
+                                ul3
+                                <li>
+                                    li3
+                                    <span id="fromMe">fromMe</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div> <!-- end of .wrap -->
+
+    <div class="wrap">
+        <p>p</p>
+        <span>span</span>
+        <h1>h1</h1>
+        <h2>h2</h2>
+        <h3>h3</h3>
+        <p>p</p>
+    </div>
+    <button id="btn1">부모</button>
+    <button id="btn2">자식</button>
+    <button id="btn3">형제</button>
+    <button id="btn4">@실습문제1</button>
+    <button id="btn5">@실습문제2</button>
+
+    <script>
+    const style = {
+        color : "red",
+        border : "1px solid red"
+    };
+
+    /**
+     * @실습문제1
+     * - .wrap으로부터 li2-2 찾아서 스타일 적용하기
+     */
+    $(btn4).on('click', () => {
+        $(".wrap")
+            .find("ul:eq(2)").children(":contains(li2-2)").css(style);
+    })
+    
+    /**
+     * @실습문제2
+     * - #fromMe로부터 li2-2 찾아서 스타일 적용하기
+     */
+    $(btn5).on('click', () => {
+        $("#fromMe")
+            .parents("li")
+            .eq(1)
+            .prev()
+            .css(style)
+    })
+
+    /**
+     * 형제
+     * - siblings([selector]) : 모든 형제 요소
+     * - next() : 다음 형제 요소
+     * - nextAll([selector]) : 다음 모든 형제 요소
+     * - nextUntil([selector]) : 특정 요소 다음 모든 형제 요소
+     * - prev() : 이전 형제 요소
+     * - prevAll([selector]) : 이전 모든 형제 요소
+     * - prevUntil(selector) : 특정 요소 이전 모든 형제 요소
+     */
+    $(btn3).on('click', () => {
+        console.log(
+            $(".wrap h2")
+                // .siblings()
+                // .siblings("p") //형제요소 중 p
+                // .siblings(":header") // <h1>, <h2>... <header>아님
+                // .next() // 다음 형제 요소
+                // .nextAll(":header") // h3
+                // .nextUntil("p") 
+                .prev()
+                .prevAll()
+                .preveAll(":header")
+                .prevUntil("p")
+                .css(style)  
+        );
+    });
+
+
+    /**
+     * 자식
+     * - children([selector]) : 직계 자식 요소
+     * - find(selector) : 선택자와 일치하는 후손 요소
+     */
+    $(btn2).on('click', () => {
+        console.log(
+          $(".wrap")
+            // .children() // 직계 자식
+            // .children(":first") // 첫번째 직계 자식
+            // .children().first() // 첫번째 직계자식
+            .find('li') // 자식 li 다 
+            .css(style)  
+        );
+    });
+
+
+    /**
+     * 부모방향
+     * - parent([selector]) : 직계 부모 요소
+     * - parents([selector]) : 조상 요소
+     * - parentUntil(selector) : 선택한 요소 전 모든 부모요소
+     */
+    $(btn1).on('click', () => {
+        console.log(
+            $("span")
+                // .parent()
+                // .parent("li") // 직계 부모요소중 li만
+                // .parents() // 조상 다
+                // .parents("ul") // 조상들 중 ul 태그만
+                .parentsUntil("div")
+                .css(style)
+        );
+    });
+    </script>
+</body>
+</html>
