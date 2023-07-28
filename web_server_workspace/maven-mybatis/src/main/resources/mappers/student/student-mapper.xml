@@ -43,4 +43,16 @@
   	where
   		id = #{id}
   </update>
+  <delete id="deleteStudent">
+  	delete from
+  		student
+  	where
+  		id = #{id}
+  </delete>
+  <select id="getTotalCount" resultType="_int">
+  select
+  	count(*)
+  from
+  	student
+  </select>
 </mapper>

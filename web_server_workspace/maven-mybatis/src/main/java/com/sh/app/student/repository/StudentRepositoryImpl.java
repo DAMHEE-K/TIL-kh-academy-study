@@ -1,7 +1,9 @@
 package com.sh.app.student.repository;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import com.sh.app.student.entity.Student;
@@ -27,6 +29,26 @@ public class StudentRepositoryImpl implements StudentRepository {
 	@Override
 	public int updateStudent(SqlSession session, Student student) {
 		return session.update("student.updateStudent", student);
+	}
+
+	@Override
+	public int deleteStudent(SqlSession session, int id) {
+		return session.delete("student.deleteStudent", id);
+	}
+
+	@Override
+	public int getTotalCount(SqlSession session) {
+		return session.selectOne("student.getTotalCount");
+	}
+
+	@Override
+	public List<Student> findPage(SqlSession session, Map<String, Object> params) {
+		int page = (int) params.get("page");
+		int limit = (int) params.get("limit");
+		int offset = (page - 1) * limit; // 1 페이지면 0, 2페이지면 10, 3페이지는 20 ...
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return session.selectList("student.findAll", null, rowBounds);
 	}
 	
 }

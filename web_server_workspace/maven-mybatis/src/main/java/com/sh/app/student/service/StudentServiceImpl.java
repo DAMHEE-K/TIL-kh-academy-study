@@ -2,6 +2,7 @@ package com.sh.app.student.service;
 
 import static com.sh.app.common.SqlSessionUtils.*;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -9,8 +10,11 @@ import com.sh.app.student.entity.Student;
 import com.sh.app.student.repository.StudentRepository;
 import com.sh.app.student.repository.StudentRepositoryImpl;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-	private final StudentRepository studentRepository = new StudentRepositoryImpl();
+	private final StudentRepository studentRepository;
 	
 	@Override
 	public List<Student> findAll() {
@@ -60,5 +64,37 @@ public class StudentServiceImpl implements StudentService {
 			session.close();
 		}
 		return result;
+	}
+
+	@Override
+	public int deleteStudent(int id) {
+		SqlSession session = getSqlSession();
+		int result = 0;
+		try {
+			result = studentRepository.deleteStudent(session, id);
+			session.commit();
+		} catch(Exception e) {
+			session.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public int getTotalCount() {
+		SqlSession session = getSqlSession();
+		int totalCount = studentRepository.getTotalCount(session);
+		session.close();
+		return totalCount;
+	}
+
+	@Override
+	public List<Student> findPage(Map<String, Object> params) {
+		SqlSession session = getSqlSession();
+		List<Student> students = studentRepository.findPage(session, params);
+		session.close();
+		return students;
 	}
 }

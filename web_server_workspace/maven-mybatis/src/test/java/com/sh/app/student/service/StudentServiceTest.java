@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.sh.app.student.entity.Student;
+import com.sh.app.student.repository.StudentRepositoryImpl;
 
 @TestMethodOrder(OrderAnnotation.class)
 class StudentServiceTest {
@@ -24,7 +25,7 @@ class StudentServiceTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		this.studentService = new StudentServiceImpl();
+		this.studentService = new StudentServiceImpl(new StudentRepositoryImpl());
 	}
 
 
@@ -104,9 +105,29 @@ class StudentServiceTest {
 		assertThat(student.getTel()).isEqualTo(newTel);
 	}
 	
+	@Order(3)
+	@DisplayName("학생 삭제")
+	@ParameterizedTest
+	@MethodSource("studentProvider")
+	void testDeletStudent(Student student) throws Exception {
+		
+		// given 테스트 할 데이터 세팅
+		assertThat(student).isNotNull();
+		int id = student.getId();
+		
+		// when 
+		int result = studentService.deleteStudent(id);
+		
+		// then
+		assertThat(result).isGreaterThan(0);
+		Student other = studentService.findById(id);
+		assertThat(other).isNull();
+	}
+	
+	
 	
 	public static Stream<Arguments> studentProvider() {
-		StudentService studentService = new StudentServiceImpl();
+		StudentService studentService = new StudentServiceImpl(new StudentRepositoryImpl());
 		List<Student> students = studentService.findAll();
 		return Stream.of(Arguments.arguments(students.get(0)));
 	}
