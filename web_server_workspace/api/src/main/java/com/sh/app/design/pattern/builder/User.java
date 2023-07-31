@@ -28,6 +28,7 @@ public class User {
 	private boolean married;
 	private LocalDateTime createdAt;
 	
+	
 	public static Builder builder() {
 		return new Builder();
 	}
