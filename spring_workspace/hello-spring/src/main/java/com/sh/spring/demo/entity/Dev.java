@@ -22,6 +22,6 @@ public class Dev {
 	private int career;
 	private String email;
 	private Gender gender;
-	private List<String> langs;
+	private List<String> lang;
 	private LocalDateTime createdAt;
 }

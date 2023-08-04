@@ -29,3 +29,5 @@ create table dev(
 create sequence seq_dev_id;
 
 select * from dev;
+
+select * from dev where id = 1;

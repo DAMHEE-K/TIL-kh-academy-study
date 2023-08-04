@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sh.spring.demo.dto.DevDto;
+import com.sh.spring.demo.dto.DevCreateDto;
+import com.sh.spring.demo.dto.DevUpdateDto;
+import com.sh.spring.demo.entity.Dev;
 import com.sh.spring.demo.entity.Gender;
 import com.sh.spring.demo.service.DemoService;
 
@@ -111,7 +114,7 @@ public class DemoController {
 		Gender gender = _gender != null ? Gender.valueOf(_gender) : null;
 		List<String> langs = _langs != null ? Arrays.asList(_langs) : null;
 		
-		DevDto devDto = DevDto.builder()
+		DevCreateDto devDto = DevCreateDto.builder()
 				.name(name)
 				.career(career)
 				.gender(gender)
@@ -140,17 +143,17 @@ public class DemoController {
 	 */
 //	@RequestMapping(value="/dev2.do" , method=RequestMethod.POST)
 	@PostMapping("/dev2.do")
-	// 사용자 입력값을 Annotaion 이용하여 처리할 수 있음
+	// 사용자 입력값을 Annotation 이용하여 처리할 수 있음
 	public String dev2(
 		@RequestParam String name, 
 		@RequestParam int career,
-		@RequestParam(required = false) Gender gender,
+		@RequestParam(required = false, defaultValue = "M") Gender gender,
 		@RequestParam String email,
 		@RequestParam("lang") List<String> langs,
 		Model model
 	) {
 		
-		DevDto devDto = DevDto.builder()
+		DevCreateDto devDto = DevCreateDto.builder()
 				.name(name)
 				.career(career)
 				.gender(gender)
@@ -177,14 +180,14 @@ public class DemoController {
 	 * - 명시적으로 속성명을 작성가능 @ModelAttribute(속성명)
 	 */
 	@PostMapping("/dev3.do")
-	public String dev3(@ModelAttribute("dev") DevDto dev) {
+	public String dev3(@ModelAttribute("dev") DevCreateDto dev) {
 //		model.addAtribute("devDto",dev);
 		return "demo/devResult";
 	}
 	
 	
 	@PostMapping("/dev4.do")
-	public String dev4(@ModelAttribute("dev") @Valid DevDto dev, BindingResult bindingResult, RedirectAttributes redirectAttr) {
+	public String dev4(@ModelAttribute("dev") @Valid DevCreateDto dev, BindingResult bindingResult, RedirectAttributes redirectAttr) {
 		
 		if(bindingResult.hasErrors()) {
 			List<ObjectError> errors = bindingResult.getAllErrors();
@@ -202,7 +205,7 @@ public class DemoController {
 	}
 	
 	@PostMapping("/createDev.do")
-	public String createDev(@Valid DevDto devDto, BindingResult bindingResult, RedirectAttributes redirectAttr) {
+	public String createDev(@Valid DevCreateDto devDto, BindingResult bindingResult, RedirectAttributes redirectAttr) {
 		
 		if(bindingResult.hasErrors()) {
 			redirectAttr.addFlashAttribute("msg",  bindingResult.getAllErrors().get(0).getDefaultMessage());
@@ -212,5 +215,41 @@ public class DemoController {
 		int result = demoService.insertDev(devDto);
 		redirectAttr.addFlashAttribute("msg", "성공적으로 Dev 등록했습니다.");
 		return "redirect:/demo/devForm.do";
+	}
+	
+	@GetMapping("/devList.do")
+	public void devList(Model model) {
+		// 요청주소에서 viewName 유추함
+		// /demo/devList.do -> demo/devList
+		List<Dev> devs = demoService.findAllDev();
+		log.debug("devs = {}", devs);
+		model.addAttribute("devs", devs);
+	}
+	
+	@GetMapping("/updateDev.do")
+	public void updateDev(Model model, @RequestParam int id) {
+		Dev dev = demoService.findDevById(id);
+		log.debug("dev = {}", dev);
+		model.addAttribute("dev", dev);
+	}
+	
+	@PostMapping("/updateDev.do")
+	public String updateDev(@Valid DevUpdateDto dev, BindingResult bindingResult, RedirectAttributes redirectAttr) {
+		if(bindingResult.hasErrors()) {
+			redirectAttr.addFlashAttribute("msg", bindingResult.getAllErrors().get(0).getDefaultMessage());
+			return "redirect:/demo/updateDev.do?id=" + dev.getId();
+		}
+		
+		int result = demoService.updateDev(dev);
+		redirectAttr.addFlashAttribute("msg", "Dev정보 수정 완료!");
+		return "redirect:/demo/updateDev.do?id=" + dev.getId();
+	}
+	
+	@PostMapping("/deleteDev.do")
+	public String deleteDev(@RequestParam int id, RedirectAttributes redirectAttr) {
+		int result = demoService.deleteDev(id);
+		log.debug("result = {}", result);
+		redirectAttr.addFlashAttribute("msg", "Dev정보 삭제 완료!");
+		return "redirect:/demo/devList.do";
 	}
 }

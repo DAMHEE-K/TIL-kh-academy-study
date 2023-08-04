@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="student">
+	<resultMap id="todoList" type="Todo">
+		<id column="id" property="id" />
+		<result column="member_id" property="memberId" />
+		<result column="todo" property="todo" />
+		<result column="created_at" property="createdAt" />
+		<result column="completed_at" property="completedAt" />
+	</resultMap>
+</mapper>
