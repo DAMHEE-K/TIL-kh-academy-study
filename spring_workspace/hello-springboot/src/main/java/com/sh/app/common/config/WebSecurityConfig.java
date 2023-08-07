@@ -76,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/", "/index.jsp").permitAll() // 인덱스 페이지는 권한 없이 접근 가능
 //			.antMatchers("/admin/**").hasRole("ADMIN")
 			.antMatchers("/member/memberCreate.do", "/member/checkIdDuplicate.do").anonymous()
+			.antMatchers("/board/boardList.do").permitAll()
 			.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // ROLE_ 접두사 필요		
 			.anyRequest().authenticated(); // 나머지 별도 요청들은 인증 필요
 		

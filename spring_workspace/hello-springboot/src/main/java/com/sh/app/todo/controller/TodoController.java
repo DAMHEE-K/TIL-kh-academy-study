@@ -1,13 +1,10 @@
 package com.sh.app.todo.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sh.app.member.entity.MemberDetails;
@@ -40,8 +36,8 @@ public class TodoController {
 	public void todo(Model model, Authentication authentication, @AuthenticationPrincipal MemberDetails member) {
 		MemberDetails principal = (MemberDetails) authentication.getPrincipal();
 
-		if(true)
-			throw new RuntimeException("Todododododododoodo");
+//		if(true)
+//			throw new RuntimeException("Todododododododoodo");
 		
 		log.debug("todoService = {} {}", todoService, TodoService.class);
 //		if(member.getMemberId() == null)

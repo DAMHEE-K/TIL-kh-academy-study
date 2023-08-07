@@ -19,7 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class StopwatchAspect {
-
+	
+	// AOP에서 어드바이스(Advice, 부가기능 또는 횡단 코드)를 타깃의 코드 중, 어디에 적용할지
 	@Pointcut("execution(* com.sh.app..*Controller.create(..))")
 	public void pointcut() {}
 	

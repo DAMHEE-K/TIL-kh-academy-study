@@ -11,10 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * HandlerMapping에 따라 요청에 맞는 컨트롤러를 찾아 연결
  * HandlerInterceptor : 중간에 가로채는 것
  * 
  * - preHandle : HandlerAdapter를 통한 controller 호출 전. 컨트롤러 공통코드 구현(인증)
- * - postHandle HandlerAdapter를 통한 controller 호출 후. 핸들러 반환값에 대한 전 처리
+ * - postHandle : HandlerAdapter를 통한 controller 호출 후. 핸들러 반환값에 대한 전 처리
  * - afterCompletion : view단 처리 후. 응답처리관련 공통코드
  */
 @Slf4j

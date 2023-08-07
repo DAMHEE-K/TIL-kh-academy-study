@@ -4,13 +4,13 @@ public class AspectImpl implements Aspect {
 
 	@Override
 	public void before() {
-		System.out.println("ㅋㅋㅋ");
+		System.out.println("aspect before");
 		
 	}
 
 	@Override
 	public void after() {
-		System.out.println("ㅎㅎㅎ");
+		System.out.println("aspect after");
 	}
 
 }
