@@ -24,6 +24,8 @@ import com.sh.app.oauth.service.KakaoService;
 
 import lombok.extern.slf4j.Slf4j;
 
+// 레거시용 코드
+
 @Controller
 @Slf4j
 @RequestMapping("/oauth/kakao")

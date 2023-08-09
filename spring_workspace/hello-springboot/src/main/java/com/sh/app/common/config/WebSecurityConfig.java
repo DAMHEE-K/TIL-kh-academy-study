@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -26,6 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private UserDetailsService memberService;
 
+	@Autowired
+	private OAuth2UserService oauth2UserService;
 	
 	@Autowired
 	private DataSource dataSource;
@@ -109,6 +112,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.tokenRepository(tokenRepository())
 			.key("hello-springboot-secret")
 			.tokenValiditySeconds(60 * 60 * 24 * 14); // 2주
+		
+		
+		// 소셜로그인 관련
+		http.oauth2Login()
+		.loginPage("/member/memberLogin.do")
+		.userInfoEndpoint()
+		.userService(oauth2UserService);
 	}
 	
 	
