@@ -53,4 +53,10 @@ public class BoardServiceImpl implements BoardService{
 		return boardRepository.findById(id);
 	}
 
+
+	@Override
+	public Attachment findAttachmentById(int id) {
+		return boardRepository.findAttachmentById(id);
+	}
+
 }

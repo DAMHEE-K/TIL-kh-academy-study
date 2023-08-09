@@ -20,8 +20,7 @@ public class HelloSpringUtils {
 		
 		// 형식객체
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS_");
-		DecimalFormat df = new DecimalFormat("000");
+		DecimalFormat df = new DecimalFormat("000"); 
 		return sdf.format(new Date()) + df.format(Math.random() * 1000) + ext;
 	}
-
 }

@@ -38,15 +38,14 @@ public class LogIntercepter implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView mav) throws Exception {
-		HandlerInterceptor.super.postHandle(request, response, handler, mav);
-		log.debug(">>>>>> Handler 리턴 후 mav = {}", mav);
-		
-		Map<String, Object> model = mav.getModel();
-		String viewName = mav.getViewName();
-		log.debug("model = {}", model);
-		log.debug("viewName = {}", viewName);
+		log.debug("<<<<< Handler 리턴후 mav = {}", mav);
+		if(mav != null) {
+			Map<String, Object> model = mav.getModel();
+			String viewName = mav.getViewName();
+			log.debug("model = {}", model);
+			log.debug("viewName = {}", viewName);			
+		}
 	}
-
 	
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)

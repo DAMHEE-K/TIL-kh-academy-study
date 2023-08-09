@@ -41,3 +41,12 @@ mybatis:
   mapper-locations: classpath*:mapper/**/*-mapper.xml
       
       
+# oauth
+oauth:
+  kakao:
+    authorize-uri: https://kauth.kakao.com/oauth/authorize/
+    redirect-uri: http://localhost:8080/spring/oauth/kakao/callback.do
+    rest-api-key: fcbf27a941711da28cbbafd4a6665c35
+    token-uri: https://kauth.kakao.com/oauth/token
+    scope: profile_nickname, account_email, profile_image
+    resource-uri-host: https://kapi.kakao.com

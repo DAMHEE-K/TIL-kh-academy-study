@@ -15,6 +15,9 @@ public interface MemberRepository {
 	@Insert("insert into member values (#{memberId}, #{password}, #{name}, #{birthday, jdbcType=DATE}, #{email, jdbcType=VARCHAR}, default)")
 	int insertMember(MemberCreateDto member);
 
+	@Insert("insert into authority values (#{memberId}, 'ROLE_USER')")
+	int insertAuthority(MemberCreateDto member);
+
 	@Select("select * from member where member_id = #{memberId}")
 	Member findMemberById(String memberId);
 
@@ -24,4 +27,5 @@ public interface MemberRepository {
 
 	@Update("update member set birthday = #{birthday}, email = #{email}, name = #{name} where member_id= #{memberId}")
 	int memberUpdate(Member member);
+
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @ToString(callSuper = true)

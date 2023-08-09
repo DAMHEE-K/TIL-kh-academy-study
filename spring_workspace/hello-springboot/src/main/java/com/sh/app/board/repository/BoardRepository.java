@@ -30,4 +30,7 @@ public interface BoardRepository {
 	int insertAttachment(Attachment attach);
 
 	BoardDetails findById(int id);
+
+	@Select("select * from attachment where id = #{id}")
+	Attachment findAttachmentById(int id);
 }

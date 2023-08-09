@@ -165,7 +165,7 @@ select * from board where id between 2 and 20;
 -- 시퀀스 번호 확인
 -- 세션별로  nextval 호출없이 currVal 호출할수없다 
 
-
+commit;
 -- 게시글/첨부파일 조인쿼리 (조회할때 기준컬럼 어디인가 생각하고 쪼인할 것)
   select
   	b.*,
