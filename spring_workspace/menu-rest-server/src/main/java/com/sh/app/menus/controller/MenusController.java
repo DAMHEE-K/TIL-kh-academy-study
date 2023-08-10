@@ -33,7 +33,9 @@ public class MenusController {
 	@Autowired
 	private MenusService menusService;
 	
-	@GetMapping
+	
+	// "localhost:1000/menus" 요청이 오면 무조건 findAll 실행
+	@GetMapping // 뒤에 url 없는 경우에 생략 가능함
 	public ResponseEntity<?> findAll() {
 		return ResponseEntity.ok(menusService.findAll());
 	}
@@ -58,19 +60,26 @@ public class MenusController {
 		log.debug("dto = {}", dto);
 		// dto -> entity 변환후 요청
 		Menu menu = dto.toMenu();
-//		return ResponseEntity.ok(menusService.save(menu));
-		return ResponseEntity.created(URI.create("/menus/" + menu.getId())).build();
+		return ResponseEntity.ok(menusService.save(menu));
+//		return ResponseEntity.created(URI.create("/menus/" + menu.getId())).build();
 	}
 	
 	
+	/**
+	 * 업데이트 쿼리
+	 * JSON 으로 값을 받기 위해서 @RequestBody 역시 추가
+	 */
 	@PatchMapping("/{id}")
 	public ResponseEntity<?> updateMenu(@PathVariable Long id, @Valid @RequestBody MenuDto dto) {
-		Menu menu = dto.toMenu();
-		menu.setId(id);
-		menusService.save(menu);
+		Menu menu = dto.toMenu(); // 요청에서 넘어온 값을 Menu 객체로 변환
+		menu.setId(id); // 시퀀스 값 세팅
+		menusService.save(menu); // JPA에서는 save라는 용어 사용
 		return ResponseEntity.ok(menusService.findById(id));
 	}
 	
+	/**
+	 * 삭제 쿼리
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteMenu(@PathVariable Long id) {
 		menusService.deleteById(id);

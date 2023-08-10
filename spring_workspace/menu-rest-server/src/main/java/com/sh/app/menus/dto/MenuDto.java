@@ -1,5 +1,6 @@
 package com.sh.app.menus.dto;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.sh.app.menus.entity.Menu;
@@ -13,10 +14,14 @@ public class MenuDto {
 	
 	@NotBlank(message ="음식점명은 필수입니다.")
 	private String restaurant;
+	
 	@NotBlank(message ="메뉴명은 필수입니다.")
 	private String name;
-	@NotBlank(message ="가격은 필수입니다.")
+	
+//	@NotBlank(message ="가격은 필수입니다.")
+	@Min(value = 0, message = "가격은 0보다 크거나 같아야 합니다.")
 	private Integer price;
+	
 	private MenuType type;
 	private MenuTaste taste;
 	
