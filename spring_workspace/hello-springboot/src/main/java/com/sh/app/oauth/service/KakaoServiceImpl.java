@@ -94,6 +94,8 @@ public class KakaoServiceImpl implements KakaoService {
 						HttpMethod.GET, 
 						httpEntity, 
 						new ParameterizedTypeReference<Map<String, Object>>(){});
+							// 익명 클래스 : 인터페이스나 추상클래스를 객체화할 때 사용함
+							// 프로그램에서 일시적으로 한번만 사용되고 버려지기 때문에 이름을 붙이지 않음 
 		
 		return responseEntity.getBody();
 	}

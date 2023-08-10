@@ -39,6 +39,7 @@ import com.sh.app.board.entity.BoardDetails;
 import com.sh.app.board.service.BoardService;
 import com.sh.app.commons.HelloSpringUtils;
 import com.sh.app.member.entity.MemberDetails;
+import com.sh.app.notification.service.NotificationService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,6 +58,9 @@ public class BoardController {
 	// application.yml 변수 가져오기
 	@Value("${spring.servlet.multipart.location}")
 	private String multipartLocation;
+
+	@Autowired
+	private NotificationService notificationService;
 
 	@GetMapping("/boardList.do")
 	public void boardList(@RequestParam(defaultValue = "1") int page, Model model) {
@@ -77,28 +81,32 @@ public class BoardController {
 	 * 
 	 */
 	@PostMapping("/boardCreate.do")
-	public String boardCreate(@Valid BoardCreateDto _board, BindingResult bindingResult,
+	public String boardCreate(
+			@Valid BoardCreateDto _board, 
+			BindingResult bindingResult,
 			@AuthenticationPrincipal MemberDetails member,
 			@RequestParam(value = "upFile", required = false) List<MultipartFile> upFiles)
-			throws IllegalStateException, IOException {
-
+					throws IllegalStateException, IOException {
+		
 		// 1. 파일저장
 		List<Attachment> attachments = new ArrayList<>();
-		for (MultipartFile upFile : upFiles) {
-			if (!upFile.isEmpty()) {
+		for(MultipartFile upFile : upFiles) {			
+			if(!upFile.isEmpty()) {
 				String originalFilename = upFile.getOriginalFilename();
 				String renamedFilename = HelloSpringUtils.getRenameFilename(originalFilename); // 20230807_142828888_123.jpg
-				File destFile = new File(renamedFilename); // 부모 디렉토리 생략가능.
-																		// spring.servlert.multipart.location 값 생략가능
-				upFile.transferTo(destFile);
-
-				Attachment attach = Attachment.builder().originalFilename(originalFilename)
-						.renamedFilename(renamedFilename).build();
-
+				File destFile = new File(renamedFilename); // 부모디렉토리 생략가능. spring.servlet.multipart.location 값을 사용
+				upFile.transferTo(destFile); // 실제파일 저장
+				
+				Attachment attach = 
+						Attachment.builder()
+						.originalFilename(originalFilename)
+						.renamedFilename(renamedFilename)
+						.build();
 				attachments.add(attach);
 			}
+			
 		}
-
+		
 		// 2. db저장
 //		Board board = _board.toBoard();
 //		board.setMemberId(member.getMemberId());
@@ -111,6 +119,11 @@ public class BoardController {
 		
 		log.debug("board = {}", board);
 		int result = boardService.insertBoard(board);
+		
+		
+		// 3. 특정사용자에게 실시간 알림 
+		result = notificationService.notifyBoardCreate(board);
+		
 		
 		return "redirect:/board/boardDetail.do?id=" + board.getId() ;
 	}

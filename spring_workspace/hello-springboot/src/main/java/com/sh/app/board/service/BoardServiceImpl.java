@@ -13,7 +13,11 @@ import com.sh.app.board.entity.Board;
 import com.sh.app.board.entity.BoardDetails;
 import com.sh.app.board.repository.BoardRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Transactional(rollbackFor = Exception.class)
 @Service
+@Slf4j
 public class BoardServiceImpl implements BoardService{
 
 	@Autowired
@@ -30,16 +34,16 @@ public class BoardServiceImpl implements BoardService{
 
 
 	// 어떤 오류가 발생하면 무조건 rollback
-	@Transactional(rollbackFor = Exception.class)
+	// @Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertBoard(Board board) {
 		int result = 0;
 		// board 저장
 		result = boardRepository.insertBoard(board);
-
+		log.debug("board = {}", board);
 		// attachment 저장
 		List<Attachment> attachments = ((BoardDetails) board).getAttachments();
-		if(!attachments.isEmpty() && attachments != null) {
+		if(attachments != null && !attachments.isEmpty()) {
 			for(Attachment attach : attachments) {
 				attach.setBoardId(board.getId());
 				result = boardRepository.insertAttachment(attach);

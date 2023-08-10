@@ -29,7 +29,7 @@ create table dev (
 create sequence seq_dev_id;
 
 select * from dev;
-
+select * from member;
 -- 
 create table member (
     member_id varchar2(50),
@@ -72,6 +72,7 @@ insert into authority values ('honggd', 'ROLE_USER');
 select * from member where member_id = 'admin';
 select * from authority where member_id = 'admin';
 
+update authority set auth = 'ROLE_ADMIN' where member_id = 'qwerty';
 -- Todo 할일관리
 create table todo (
     id number,

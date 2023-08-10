@@ -1,5 +1,8 @@
 console.log('Hello stomp.js');
 
+// const ws = new WebSoket(`ws://${location.host}/spring/stomp`);
+// SockJS 는 WebSocket 프로토콜을 지원하지 않는 브라우저에서도 사용 가능함
+
 const ws = new SockJS(`http://${location.host}/spring/stomp`); // endpoint
 const stompClient = Stomp.over(ws);
 
