@@ -25,6 +25,15 @@ public class MenuDto {
 	private MenuType type;
 	private MenuTaste taste;
 	
+	public Menu toMenu(Menu menu) {
+		menu.setRestaurant(restaurant);
+		menu.setName(name);
+		menu.setPrice(price);
+		menu.setType(type);
+		menu.setTaste(taste);
+		return menu;
+	}
+
 	public Menu toMenu() {
 		return Menu.builder()
 				.restaurant(restaurant)

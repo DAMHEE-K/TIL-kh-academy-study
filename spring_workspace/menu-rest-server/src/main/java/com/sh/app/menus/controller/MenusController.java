@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -24,6 +25,7 @@ import com.sh.app.menus.service.MenusService;
 
 import lombok.extern.slf4j.Slf4j;
 
+// @CrossOrigin(origins ="http://localhost:8080")
 @RestController // @Controller 모든 핸들러에 @ResponseBody 어노테이션 적용해줌
 				// @ResponseBody 핸들러에 반환된 자바 객체를 Response Body에 써줌
 @RequestMapping("/menus")
@@ -71,9 +73,15 @@ public class MenusController {
 	 */
 	@PatchMapping("/{id}")
 	public ResponseEntity<?> updateMenu(@PathVariable Long id, @Valid @RequestBody MenuDto dto) {
-		Menu menu = dto.toMenu(); // 요청에서 넘어온 값을 Menu 객체로 변환
-		menu.setId(id); // 시퀀스 값 세팅
+		// 한 건 조회
+		Menu menu = menusService.findById(id);
+		if(menu == null)
+			return ResponseEntity.notFound().build();
+		
+		// 수정
+		dto.toMenu(menu); // 요청에서 넘어온 dto값으로 조회된 메뉴의 속성들을 덮어씌움
 		menusService.save(menu); // JPA에서는 save라는 용어 사용
+								 // JPA 특징 : 모든 컬럼을 업데이트 해버림
 		return ResponseEntity.ok(menusService.findById(id));
 	}
 	

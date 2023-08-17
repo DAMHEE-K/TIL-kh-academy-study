@@ -185,4 +185,8 @@ public class MemberSecurityController {
 //		"memberId", memberId
 //	);
 //}
+	
+	@GetMapping("/terms.do")
+	public void getTerms() {}
+	
 }

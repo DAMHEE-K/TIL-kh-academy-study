@@ -21,10 +21,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StompMessageController {
 	
+	// STOMP (Simple Text Oriented Messaging Protocol)
+	// 간단한 메시지를 전송하기 위한 프로토콜로 메시지 브로커를와 publisher - subscriber 방식을 사용
+	// 메세지 브로커는 발행자가 보낸 메세지를 구독자에게 전달해주는 역할
+	
 	@Autowired
 	private MemberService memberService; // 빈 생성 가능
 										// 디비에서 조회해서 메세지로 출력도 가능하다는 의미
-	
 	
 //	@Autowired
 //	private NotificationService notificationService;

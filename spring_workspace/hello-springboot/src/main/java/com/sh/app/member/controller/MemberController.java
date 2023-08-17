@@ -79,7 +79,7 @@ public class MemberController {
 	public String memberLogin(@Valid MemberLoginDto _member, 
 			BindingResult bindingResult, Model model) {
 		
-		log.debug("_member = {}", _member);
+		log.debug("_member = {}", _member); // 뷰에서 멤버가 잘 넘어왔나 체크
 		
 		// 1. 아이디로 Member 조회
 		Member member = memberService.findMemberById(_member.getMemberId());

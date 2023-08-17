@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,7 @@ import lombok.NoArgsConstructor;
 						// 제너레이터 이름, 실제 시퀀스 이름
 @SequenceGenerator(name = "SEQ_MENU_ID", sequenceName = "SEQ_MENU_ID",initialValue = 21, allocationSize = 1)
 @Entity
+@DynamicUpdate // update시에 변경된 필드만 쿼리문에 포함
 @Builder
 @Data
 @NoArgsConstructor
