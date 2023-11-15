@@ -89,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.loginPage("/member/memberLogin.do") // 사용자 정의 로그인 페이지의 URL을 설정. 사용자가 인증 없이 액세스하려고 하면 이 페이지로 redirect
 			.loginProcessingUrl("/member/memberLogin.do") // security 위임, 우리가 작성할 필요가 없음. 
 			.usernameParameter("memberId") // 인증용 토큰을 이 값을 사용해서 만들겠다 표명하는 코드
-			.defaultSuccessUrl("/") // 인증에 성공하면 /URL로 redirect
+			.defaultSuccessUrl("/pet") // 인증에 성공하면 /URL로 redirect
 			.permitAll(); // loginPage에는 모두 접근 가능
 		
 		// /logout

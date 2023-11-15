@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sh.app.member.dto.CheckIdDuplicateResponseDto;
@@ -42,28 +43,21 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/member")
 public class MemberSecurityController {
 	
-	// Autowired : 빈에게 객체를 주입받고 싶을 때 쓰는 어노테이션
 	@Autowired
 	private MemberService memberService;
+	
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	// 서버가 켜졌다는 건 의존 주입이 잘 되었다는 이야기
+	
 	@GetMapping("/memberCreate.do")
 	public void memberCreate() {}
+
 	
-	/**
-	 * $2a$10$0gTYziPEcS/GD0ZHwmTMguRWWIqgwN79NCQGOti0Ttc0YaKn2CMBq
-	 * - 알고리즘 $2a$
-	 * - 옵션 10$ round 숫자 (높을수록 보안성 증가, 속도/메모리 사용량 증가)
-	 * - 랜덤 솔트(22자리)
-	 * - 해싱값 (31자리)
-	 */
 	@PostMapping("/memberCreate.do")
 	public String create(@Valid MemberCreateDto member, 
 			BindingResult bindingResult, RedirectAttributes redirectAttr) {
-		// bindingResult : 오류 정보를 담고 있는 객체
 		
 		log.debug("member = {}", member);
 		
@@ -94,13 +88,6 @@ public class MemberSecurityController {
 	@GetMapping("/memberDetail.do")
 	public void memberDetail(Authentication authentication, @AuthenticationPrincipal MemberDetails member) {
 		log.debug("authentication = {}", authentication);
-		// UsernamePasswordAuthenticationToken 
-		// [Principal=MemberDetails(super=Member
-		// (memberId=honggd, password=$2a$10$0gTYziPEcS/GD0ZHwmTMguRWWIqgwN79NCQGOti0Ttc0YaKn2CMBq, name=홍길동, birthday=1999-09-09, email=honggd@naver.com, createdAt=2023-08-02T11:25:02), 
-		// authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, 
-		// Details=WebAuthenticationDetails 
-		// [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=1DA05B55B630FA4D64E9F0C6DE6ED0D8], 
-		// Granted Authorities=[ROLE_USER]]
 		
 		MemberDetails principal = (MemberDetails) authentication.getPrincipal();
 		Object credential = authentication.getCredentials(); // 열람불가
