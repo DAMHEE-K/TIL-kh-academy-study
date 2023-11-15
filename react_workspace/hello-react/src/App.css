@@ -1,27 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Dokdo&display=swap');
+body {
+  background-color: antiquewhite;
+}
 .App {
   text-align: center;
-  font-family: 'Noto Sans KR', sans-serif;
-  color: rgb(83, 154, 157);
+  color: rgb(8, 96, 118);
+  
+  font-family: 'Dokdo', cursive;
+  font-size: 2em;
 }
-
+.foo {
+  color: aquamarine;
+}
+.bar {
+  color: violet;
+}
 .sample {
   color: tomato;
 }
-
 .wrapper {
   display: flex;
   justify-content: space-evenly;
 }
-
 .item {
   border: 2px solid #000;
   padding: 5px;
   margin: 10px;
   width: 30vw;
 }
-
 table {
   border : 2px solid #000;
   border-collapse: collapse;
@@ -37,12 +43,25 @@ td {
   padding: 10px;
   text-align: left;
 }
+fieldset {
+  width : 70vw;
+  margin: 20px auto;
+  border-radius: 15px;
+  padding: 10px 5px 5px;
+}
+input {
+  font-family: 'Dokdo', cursive;
+  font-size: 1.1em;
+  outline: none;
+  border-width: 0 0 2px 0;
+  color :rgb(37, 204, 246);
+  background-color: antiquewhite;
+}
 
 .family {
   border: 2px solid;
   margin: 30px;
 }
-
-.grand-parent {color: red;}
-.parent {color: blue;}
-.child {color: green;}
+.grand-parent {color : red;}
+.parent {color : blue;}
+.child {color : green;}

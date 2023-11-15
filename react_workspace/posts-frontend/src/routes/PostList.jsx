@@ -11,7 +11,7 @@ const PostList = () => {
   const {states : {posts, page}, actions : {getPosts}} = postContext;
 
   useEffect(() => {
-    getPosts(page); 
+    getPosts(); 
   }, [page]); // page값이 변경될때마다 useEffect 콜백 호출
 
   return (

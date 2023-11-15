@@ -8,13 +8,13 @@ const PostContextProvider = (props) => {
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const getPosts = (_page) => {
-    axios(`/posts?page=${_page}`)
+  const getPosts = () => {
+    axios(`/posts?page=${page}`)
       .then((response) => {
         console.log(response);
         const {content, number : page, totalElements, totalPages} = response.data;
         setPosts(content);
-        setPage(page);
+        // setPage(page); // 이전/다음 연속 클릭시 버그방지
         setTotalPages(totalPages);
       });
   };

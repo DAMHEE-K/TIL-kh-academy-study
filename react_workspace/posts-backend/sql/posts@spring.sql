@@ -26,10 +26,8 @@ select * from post where id = 1;
 update post set title = '짱 쉬운 AI', content = 'Artificial intelligence, That\'s all~.' escape '\' where id = 1;
 
 -- DELETE /posts/1
-delete from post where id = 1;
+delete from posts where id = 1;
 
 
--- 행 추가
-insert all
-into post (id, title, writer, content) values(seq_post_id.nextval, title, writer, content)
-select * from post;
+
+
